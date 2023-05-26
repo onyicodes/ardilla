@@ -1,3 +1,5 @@
+import 'package:ardilla/app/features/auth/presentation/bindings/signup_binding.dart';
+import 'package:ardilla/app/features/auth/presentation/pages/signup_page.dart';
 import 'package:ardilla/app/features/landing/presentation/bindings/landing_binding.dart';
 import 'package:ardilla/app/features/landing/presentation/pages/landing_page.dart';
 import 'package:ardilla/app/features/onboarding/presentation/bindings/onboard_binding.dart';
@@ -20,12 +22,15 @@ abstract class AppPages {
         page: () => LandingPage(),
         binding: LandingBinding(),
         transition: Transition.leftToRight),
-    
-     GetPage(
+    GetPage(
         name: Routes.onboarding,
         page: () => OnboardingPage(),
         binding: OnboardingBinding(),
         transition: Transition.leftToRight),
-
+    GetPage(
+        name: Routes.auth,
+        page: () => AuthPage(),
+        binding: AuthBinding(),
+        transition: Transition.leftToRight),
   ];
 }
