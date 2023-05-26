@@ -33,7 +33,7 @@ class SelectedNavBar extends StatelessWidget {
                   stops: [0, 0.5],
                   colors: [
                     Color(0xff34F5C5),
-                    Color(0xff1DCDFE),
+                    Color(0xffE7CDFE),
                   ],
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(12))),

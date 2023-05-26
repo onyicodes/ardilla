@@ -6,12 +6,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class SplashScreenPage extends GetView<SplashScreenController> {
-  SplashScreenPage({super.key}){
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-  }
-
- 
   
+
+
 
   @override
   Widget build(BuildContext context) {

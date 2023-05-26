@@ -1,4 +1,5 @@
 import 'package:ardilla/app/routes/app_pages.dart';
+import 'package:ardilla/app/theme/app_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -13,6 +14,7 @@ class App extends StatelessWidget {
       scrollBehavior: MyCustomScrollBehavior(),
       debugShowCheckedModeBanner: false,
       initialRoute: Routes.initial,
+      theme: ArdillaAppTheme.light(),
       themeMode: ThemeMode.light,
       supportedLocales: context.supportedLocales,
       localizationsDelegates: context.localizationDelegates,

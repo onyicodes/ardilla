@@ -2,16 +2,18 @@ import 'package:ardilla/app/features/app/presentation/pages/app.dart';
 import 'package:ardilla/generated/codegen_loader.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent, // transparent status bar
   ));
   await EasyLocalization.ensureInitialized();
   await GetStorage.init();
+  Get.put(GetStorage());
 
   runApp(EasyLocalization(
       supportedLocales: const [Locale('en')],

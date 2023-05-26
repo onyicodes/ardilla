@@ -70,16 +70,13 @@ flutter:
   assets:
     - assets/images/icons/
     - assets/images/
-    - assets/images/icons/logos/
-    - assets/images/icons/nav_bar/
     - assets/svg/nav_bar/selected/
     - assets/svg/nav_bar/unselected/
     - assets/svg/logo/
     - assets/svg/icons/
+    - assets/svg/onboarding/
     - assets/translations/
     - assets/json_contents/
-    - assets/json_contents/lottie/
-    - assets/json_contents/home/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

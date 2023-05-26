@@ -13,8 +13,8 @@ class SplashScreenController extends GetxController {
   }
 
   Future<void> loading() async {
-    // Timer(const Duration(seconds: 3), () {
-    //   Get.offAndToNamed(Routes.landing);
-    // });
+    Timer(const Duration(seconds: 3), () {
+      Get.offAndToNamed(Routes.onboarding);
+    });
   }
 }

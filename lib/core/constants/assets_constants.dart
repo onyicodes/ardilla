@@ -1,6 +1,8 @@
 class AssetsConstants {
   static const String logoSVG = 'assets/svg/logo/logo.svg';
    static const String splashScreenBgPNG = 'assets/images/splash_bg.png';
+    static const String onboardForward = 'assets/svg/onboarding/forward_button.svg';
+  static const String onboardingImageSvg = 'assets/svg/onboarding/onboarding1.svg';
   static const String navbarSelectedHome = 'assets/svg/nav_bar/selected/home_icon.svg';
   static const String navbarSelectedVoucher = 'assets/svg/nav_bar/selected/voucher_icon.svg';
   static const String navbarSelectedSettings = 'assets/svg/nav_bar/selected/settings_icon.svg';
