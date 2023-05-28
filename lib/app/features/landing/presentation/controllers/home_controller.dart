@@ -1,10 +1,7 @@
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
-class LandingController extends GetxController {
-  
-
-  LandingController();
+class HomeController extends GetxController {
+  HomeController();
 
   final _currentPageIndex = 0.obs;
   final _screenWidth = 600.0.obs;

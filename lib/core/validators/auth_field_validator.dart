@@ -2,31 +2,48 @@ import 'package:ardilla/app/features/auth/presentation/bindings/signup_binding.d
 import 'package:ardilla/app/features/auth/presentation/controllers/signup_controller.dart';
 import 'package:ardilla/core/constants/error_texts.dart';
 import 'package:ardilla/core/parameters/signup/email_signup_params.dart';
+import 'package:ardilla/core/parameters/signup/signin_params.dart';
 import 'package:email_validator/email_validator.dart';
 
-final signupController = getSignupControllerSl<AuthController>();
+final authController = getAuthControllerSl<AuthController>();
 
 class AuthFieldValidationPage {
-  Future<bool> validateEmailSignupData({required SignupParams params}) {
+  Future<bool> validateSignupParams({required SignupParams params}) {
     bool validated = true;
     if (params.userName.isEmpty) {
-      signupController.userNameError =
+      authController.userNameError =
           AuthFieldValidationErrorMessage.userNameEmpty;
       validated = false;
     }
 
-    if (params.email.isEmpty) {
-      signupController.emailError = AuthFieldValidationErrorMessage.emailEmpty;
+    if (params.firstName.isEmpty) {
+      authController.firstNameError =
+          AuthFieldValidationErrorMessage.firstNameEmpty;
       validated = false;
     }
 
-    if (!EmailValidator.validate(params.email)) {
-      signupController.emailError =
-          AuthFieldValidationErrorMessage.emailFormatWrong;
+    if (params.lastName.isEmpty) {
+      authController.lastNameError =
+          AuthFieldValidationErrorMessage.lastNameEmpty;
       validated = false;
     }
+
+
+    if (params.phone.isEmpty) {
+      authController.phoneError =
+          AuthFieldValidationErrorMessage.phoneEmpty;
+      validated = false;
+    }
+    
+    if (!authController.validPasswordField) {
+      authController.passwordError =
+          AuthFieldValidationErrorMessage.passwordFormatWrong;
+      validated = false;
+    }
+
+
     if (params.password.isEmpty) {
-      signupController.passwordError =
+      authController.passwordError =
           AuthFieldValidationErrorMessage.passwordEmpty;
       validated = false;
     }
@@ -34,19 +51,34 @@ class AuthFieldValidationPage {
     return Future.value(validated);
   }
 
-  // Future<bool> validateEmailSigninData({required SigninParams params}) {
-  //   bool validated = true;
-  //   if (params.email.isEmpty) {
-  //     signinController.emailError = AuthFieldValidationErrorMessage.fieldEmpty;
-  //     validated = false;
-  //   }
+  Future<bool> validateEmail({required String email}){
+    bool validated = true;
+     if (email.isEmpty) {
+      authController.emailError = AuthFieldValidationErrorMessage.emailEmpty;
+      validated = false;
+    }else if (!EmailValidator.validate(email)) {
+      authController.emailError =
+          AuthFieldValidationErrorMessage.emailFormatWrong;
+      validated = false;
+    }
 
-  //   if (params.password.isEmpty) {
-  //     signinController.passwordError =
-  //         AuthFieldValidationErrorMessage.passwordEmpty;
-  //     validated = false;
-  //   }
+    return  Future.value(validated);
+  }
 
-  //   return Future.value(validated);
-  // }
+  Future<bool> validateSigninParams({required SigninParams params}) {
+    bool validated = true;
+    if (params.email.isEmpty) {
+      authController.signInEmailError =
+          AuthFieldValidationErrorMessage.fieldEmpty;
+      validated = false;
+    }
+
+    if (params.password.isEmpty) {
+      authController.signInPasswordError =
+          AuthFieldValidationErrorMessage.passwordEmpty;
+      validated = false;
+    }
+
+    return Future.value(validated);
+  }
 }

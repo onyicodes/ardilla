@@ -6,8 +6,6 @@ import 'package:dartz/dartz.dart';
 import 'package:ardilla/core/error/exceptions.dart';
 import 'package:ardilla/core/error/failures.dart';
 import 'package:ardilla/core/parameters/signup/email_signup_params.dart';
-import 'package:ardilla/core/parameters/signup/google_signup_params.dart';
-import 'package:ardilla/core/parameters/signup/verify_token_params.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
   final AuthLocalDataProvider dataProvider;
@@ -21,12 +19,13 @@ class AuthRepositoryImpl extends AuthRepository {
       return Right(successMessage);
     } on ServerException {
       return Left(ServerFailure());
-    } on NetworkException {
-      return Left(NetworkFailure());
+    }on CacheException {
+      return Left(CacheFailure());
+    } on AccountExistsException {
+      return Left(AccountExistsFailure());
     } on UnknownException {
       return Left(UnknownFailure());
     } catch (e) {
-      print("email signup error $e");
       return Left(UnknownFailure());
     }
   }
@@ -39,8 +38,10 @@ class AuthRepositoryImpl extends AuthRepository {
       return Right(successMessage);
     } on ServerException {
       return Left(ServerFailure());
-    } on NetworkException {
-      return Left(NetworkFailure());
+    } on CacheException {
+      return Left(CacheFailure());
+    } on AccountNotFoundException {
+      return Left(AccountNotFoundFailure());
     } on UnknownException {
       return Left(UnknownFailure());
     } catch (e) {
@@ -57,8 +58,8 @@ class AuthRepositoryImpl extends AuthRepository {
       return Right(successMessage);
     } on ServerException {
       return Left(ServerFailure());
-    } on NetworkException {
-      return Left(NetworkFailure());
+    } on AccountExistsException {
+      return Left(AccountExistsFailure());
     } on UnknownException {
       return Left(UnknownFailure());
     } on ForbiddenException {

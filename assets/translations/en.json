@@ -1,10 +1,22 @@
 {
-    "appName": "MobMart",   
+    "appName": "Ardilla",   
     "navBar":{
         "home":"Home",
         "voucher":"Voucher",
         "wallet": "Wallet",
         "settings": "Settings"
+    },
+    "error": {
+        "networkError": "Connection error",
+        "serverError":"Server error occurred",
+        "noResultError": "Result not found",
+        "accountExists": "Account exists, try logging in",
+        "accountNotFound": "Account not found, sign up to continue",
+        "unknownError": "an unknown error occurred",
+        "forBiddenError":"you don't have permission to access this resource",
+        "badRequest": "Bad request",
+       "notAuthorized":"You are not authorized to perform this action",
+       "cachingFailed": "Cache failure"
     }
 
 }

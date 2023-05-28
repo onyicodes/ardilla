@@ -1,4 +1,4 @@
-import 'package:ardilla/app/features/landing/presentation/controllers/landing_controller.dart';
+import 'package:ardilla/app/features/landing/presentation/controllers/home_controller.dart';
 import 'package:ardilla/core/constants/assets_constants.dart';
 import 'package:ardilla/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -7,8 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart' hide Trans;
 
-class LandingPage extends GetView<LandingController> {
-  LandingPage({Key? key}) : super(key: key) {
+class HomePage extends GetView<HomeController> {
+  HomePage({Key? key}) : super(key: key) {
     SystemChrome.setEnabledSystemUIMode(
       SystemUiMode.manual,
       overlays: [
@@ -16,12 +16,11 @@ class LandingPage extends GetView<LandingController> {
       ],
     );
 
-     SystemChrome.setSystemUIOverlayStyle( const SystemUiOverlayStyle(
-    systemNavigationBarColor: Colors.white, // navigation bar color
-     statusBarBrightness: Brightness.light,
-     statusBarIconBrightness: Brightness.light// status bar color
-  ));
-    
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        systemNavigationBarColor: Colors.white, // navigation bar color
+        statusBarBrightness: Brightness.light,
+        statusBarIconBrightness: Brightness.light // status bar color
+        ));
   }
   final List<Widget> pages = const [
     Text("Home"),
@@ -33,8 +32,7 @@ class LandingPage extends GetView<LandingController> {
   @override
   Widget build(BuildContext context) {
     TextTheme primaryTextTheme = Theme.of(context).primaryTextTheme;
-    return GetBuilder<LandingController>(
-       builder: (_) {
+    return GetBuilder<HomeController>(builder: (_) {
       return WillPopScope(
         onWillPop: () async {
           if (DateTime.now().difference(_.lastExitTime) >=
@@ -53,69 +51,69 @@ class LandingPage extends GetView<LandingController> {
           },
           child: Scaffold(
             bottomNavigationBar: MediaQuery.of(context).size.width < 680
-                ? GetX<LandingController>(builder: (_) {
+                ? GetX<HomeController>(builder: (_) {
                     return NavigationBar(
-                        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+                        labelBehavior:
+                            NavigationDestinationLabelBehavior.alwaysShow,
                         onDestinationSelected: (index) {
                           _.currentPageIndex = index;
                         },
                         selectedIndex: _.currentPageIndex,
                         destinations: [
                           NavigationDestination(
-                            
                             icon: SvgPicture.asset(
                               AssetsConstants.navbarUnselectedHome,
-                                height: 30,
-                              width:30,
+                              height: 30,
+                              width: 30,
                             ),
                             selectedIcon: SvgPicture.asset(
                               AssetsConstants.navbarSelectedHome,
-                               height: 30,
-                              width:30,
+                              height: 30,
+                              width: 30,
                             ),
                             label: LocaleKeys.navBar_home.tr(),
                           ),
                           NavigationDestination(
                             selectedIcon: SvgPicture.asset(
                               AssetsConstants.navbarSelectedVoucher,
-                                height: 30,
-                              width:30,
+                              height: 30,
+                              width: 30,
                             ),
                             icon: SvgPicture.asset(
                               AssetsConstants.navbarUnselectedVoucher,
-                                height: 30,
-                              width:30,
+                              height: 30,
+                              width: 30,
                             ),
                             label: LocaleKeys.navBar_voucher.tr(),
                           ),
                           NavigationDestination(
                               icon: SvgPicture.asset(
                                 AssetsConstants.navbarUnselectWallet,
-                                  height: 30,
-                              width:30,
+                                height: 30,
+                                width: 30,
                               ),
                               selectedIcon: SvgPicture.asset(
                                 AssetsConstants.navbarSelectWallet,
-                                  height: 30,
-                              width:30,
+                                height: 30,
+                                width: 30,
                               ),
                               label: LocaleKeys.navBar_wallet.tr()),
                           NavigationDestination(
                               icon: SvgPicture.asset(
                                 AssetsConstants.navbarUnselectedSettings,
-                                 height: 30,
-                              width:30,
+                                height: 30,
+                                width: 30,
                               ),
                               selectedIcon: SvgPicture.asset(
                                 AssetsConstants.navbarSelectedSettings,
-                                 height: 30,
-                              width:30,
+                                height: 30,
+                                width: 30,
                               ),
                               label: LocaleKeys.navBar_settings.tr()),
                         ]);
                   })
                 : null,
-            body: GetX<LandingController>(
+            body: GetX<HomeController>(
               builder: (_) {
                 return Row(
                   children: [
@@ -127,13 +125,13 @@ class LandingPage extends GetView<LandingController> {
                             NavigationRailDestination(
                               icon: SvgPicture.asset(
                                 AssetsConstants.navbarUnselectedHome,
-                                 height: 30,
-                              width:30,
+                                height: 30,
+                                width: 30,
                               ),
                               selectedIcon: SvgPicture.asset(
                                 AssetsConstants.navbarSelectedHome,
-                                 height: 30,
-                              width:30,
+                                height: 30,
+                                width: 30,
                               ),
                               label: Text(
                                 LocaleKeys.navBar_home.tr(),
@@ -143,13 +141,13 @@ class LandingPage extends GetView<LandingController> {
                             NavigationRailDestination(
                                 selectedIcon: SvgPicture.asset(
                                   AssetsConstants.navbarSelectedVoucher,
-                                   height: 30,
-                              width:30,
+                                  height: 30,
+                                  width: 30,
                                 ),
                                 icon: SvgPicture.asset(
                                   AssetsConstants.navbarUnselectedVoucher,
-                                   height: 30,
-                              width:30,
+                                  height: 30,
+                                  width: 30,
                                 ),
                                 label: Text(
                                   LocaleKeys.navBar_voucher.tr(),
@@ -158,13 +156,13 @@ class LandingPage extends GetView<LandingController> {
                             NavigationRailDestination(
                                 icon: SvgPicture.asset(
                                   AssetsConstants.navbarUnselectWallet,
-                                   height: 30,
-                              width:30,
+                                  height: 30,
+                                  width: 30,
                                 ),
                                 selectedIcon: SvgPicture.asset(
                                   AssetsConstants.navbarSelectWallet,
-                                   height: 30,
-                              width:30,
+                                  height: 30,
+                                  width: 30,
                                 ),
                                 label: Text(
                                   LocaleKeys.navBar_wallet.tr(),
@@ -173,13 +171,13 @@ class LandingPage extends GetView<LandingController> {
                             NavigationRailDestination(
                                 icon: SvgPicture.asset(
                                   AssetsConstants.navbarUnselectedSettings,
-                                   height: 30,
-                              width:30,
+                                  height: 30,
+                                  width: 30,
                                 ),
                                 selectedIcon: SvgPicture.asset(
                                   AssetsConstants.navbarSelectedSettings,
-                                   height: 30,
-                              width:30,
+                                  height: 30,
+                                  width: 30,
                                 ),
                                 label: Text(
                                   LocaleKeys.navBar_settings.tr(),

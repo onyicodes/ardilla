@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class CustomButton extends StatelessWidget {
   final String label;
   final void Function()? onPressed;
@@ -12,30 +13,36 @@ class CustomButton extends StatelessWidget {
   final bool loading;
   final Color borderColor;
   final Color? iconColor;
-  final TextStyle textStyle;
+   TextStyle? textStyle;
+  final TextTheme primaryTextTheme;
 
-  const CustomButton(
+  CustomButton(
       {Key? key,
       required this.label,
       required this.onPressed,
       this.radius = 30.0,
       this.width = 343.0,
       this.icon,
+      this.textStyle,
       required this.backgroundColor,
       required this.borderColor,
       this.textColor = Colors.white,
       this.iconColor,
       this.height = 54.0,
-      required this.textStyle,
-      this.loading = false})
-      : super(key: key);
+      this.loading = false,
+      required this.primaryTextTheme})
+      : super(key: key) {
+        textStyle ??= primaryTextTheme.displaySmall!;
+    
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return FilledButton(
       clipBehavior: Clip.hardEdge,
       onPressed: loading ? null : onPressed,
       style: ButtonStyle(
+          elevation: MaterialStateProperty.all(0),
           minimumSize: MaterialStateProperty.all(Size(width, height)),
           maximumSize: MaterialStateProperty.all(Size(width, height)),
           shape: MaterialStateProperty.all<OutlinedBorder>(
@@ -45,14 +52,14 @@ class CustomButton extends StatelessWidget {
                   ),
                   side: BorderSide(
                       color: loading || onPressed == null
-                          ? borderColor.withBlue(110)
+                          ? Theme.of(context).disabledColor
                           : borderColor))),
           shadowColor: MaterialStateProperty.all(
             const Color(0xff4d4d4d).withOpacity(0.2),
           ),
           backgroundColor: MaterialStateProperty.all(
               loading || onPressed == null
-                  ? backgroundColor.withBlue(110)
+                  ?Theme.of(context).disabledColor
                   : backgroundColor)),
       child: loading
           ? const CircularProgressIndicator(
@@ -64,15 +71,14 @@ class CustomButton extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   if (icon != null)
-                   
-                      icon!,
-                     
+                  icon!
+                    ,
                   if (icon != null)
                     const SizedBox(
                       width: 12,
                     ),
                   Text(label,
-                      style: textStyle
+                      style: textStyle!
                           .copyWith(color: textColor)),
                 ],
               ),

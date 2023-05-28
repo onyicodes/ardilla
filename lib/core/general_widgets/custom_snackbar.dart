@@ -11,9 +11,10 @@ Future<dynamic> customSnackbar(
     Widget? icon,
     void Function(GetSnackBar snackBar)? onTap,
     SnackPosition snackPosition = SnackPosition.TOP,
-    Color overlayColor = Colors.white}) {
+    Color overlayColor = Colors.deepPurple}) {
   if (!Get.isSnackbarOpen) {
     Get.snackbar(title, message,
+    colorText: Colors.white,
         icon: icon ?? (isError
             ? Image.asset(
                 AssetsConstants.unknownErrorImage,
@@ -21,11 +22,11 @@ Future<dynamic> customSnackbar(
               )
             : Padding(
                 padding: const EdgeInsets.all(4.0),
-                child: SvgPicture.asset(AssetsConstants.logoSVG),
+                child: SvgPicture.asset(AssetsConstants.logoSVG,width: 30,height: 30,),
               )),
         onTap: onTap,
         duration: Duration(seconds: duration),
-        backgroundColor: isError ? Colors.red.shade100 : null,
+        backgroundColor: isError ? Colors.red.shade100 : overlayColor,
         snackPosition: snackPosition);
   }
   return Future.delayed(Duration(seconds: duration));

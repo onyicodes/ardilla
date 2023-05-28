@@ -4,133 +4,73 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ArdillaAppTheme {
   static Color lightThemeTextColor = const Color(0xff8807F7);
+  static Color lightDeepThemeTextColor = const Color(0xff3D0072);
   static Color darkThemeTextColor = const Color(0xfffefefe);
 
   static TextTheme primaryTextThemeLight = TextTheme(
-    bodyLarge: GoogleFonts.raleway(
+    bodyLarge: GoogleFonts.spaceGrotesk(
       fontSize: 16.0,
       fontWeight: FontWeight.w400,
-      color: lightThemeTextColor,
+      color: const Color(0xff6B7280),
     ),
-    bodyMedium: GoogleFonts.raleway(
+    bodyMedium: GoogleFonts.spaceGrotesk(
       fontSize: 14.0,
       fontWeight: FontWeight.w400,
-      color: lightThemeTextColor,
+      color: const Color(0xff6B7280),
     ),
-    bodySmall: GoogleFonts.raleway(
+    bodySmall: GoogleFonts.spaceGrotesk(
       fontSize: 10.0,
       fontWeight: FontWeight.w400,
-      color: lightThemeTextColor,
+      color: const Color(0xff6B7280),
     ),
-    displayLarge: GoogleFonts.raleway(
+    displayLarge: GoogleFonts.spaceGrotesk(
       fontSize: 34.0,
       fontWeight: FontWeight.w700,
-      color: lightThemeTextColor,
+      color: lightDeepThemeTextColor,
     ),
-    displayMedium: GoogleFonts.raleway(
+    displayMedium: GoogleFonts.spaceGrotesk(
       fontSize: 24.0,
       fontWeight: FontWeight.w700,
-      color: lightThemeTextColor,
+      color: lightDeepThemeTextColor,
     ),
-    displaySmall: GoogleFonts.raleway(
+    displaySmall: GoogleFonts.spaceGrotesk(
       fontSize: 18.0,
       fontWeight: FontWeight.w600,
-      color: lightThemeTextColor,
+      color: lightDeepThemeTextColor,
     ),
-    headlineLarge: GoogleFonts.roboto(
+    headlineLarge: GoogleFonts.spaceGrotesk(
       fontSize: 16.0,
       fontWeight: FontWeight.w600,
       color: lightThemeTextColor,
     ),
-    headlineMedium: GoogleFonts.raleway(
+    headlineMedium: GoogleFonts.spaceGrotesk(
       fontSize: 14.0,
       fontWeight: FontWeight.w600,
       color: lightThemeTextColor,
     ),
-    headlineSmall: GoogleFonts.raleway(
+    headlineSmall: GoogleFonts.spaceGrotesk(
       fontSize: 12.0,
       fontWeight: FontWeight.w500,
       color: lightThemeTextColor,
     ),
-    titleLarge: GoogleFonts.raleway(
+    titleLarge: GoogleFonts.spaceGrotesk(
       fontSize: 12.0,
       fontWeight: FontWeight.w500,
       color: lightThemeTextColor,
     ),
-    titleMedium: GoogleFonts.raleway(
+    titleMedium: GoogleFonts.spaceGrotesk(
       fontSize: 12.0,
       fontWeight: FontWeight.w500,
       color: lightThemeTextColor,
     ),
-    titleSmall: GoogleFonts.raleway(
+    titleSmall: GoogleFonts.spaceGrotesk(
       fontSize: 10.0,
       fontWeight: FontWeight.w600,
       color: lightThemeTextColor,
     ),
   );
 
-  static TextTheme primaryTextThemeDark = TextTheme(
-    bodyLarge: GoogleFonts.raleway(
-      fontSize: 16.0,
-      fontWeight: FontWeight.w400,
-      color: darkThemeTextColor,
-    ),
-    bodyMedium: GoogleFonts.roboto(
-      fontSize: 14.0,
-      fontWeight: FontWeight.w400,
-      color: darkThemeTextColor,
-    ),
-    bodySmall: GoogleFonts.roboto(
-      fontSize: 10.0,
-      fontWeight: FontWeight.w400,
-      color: darkThemeTextColor,
-    ),
-    displayLarge: GoogleFonts.roboto(
-      fontSize: 34.0,
-      fontWeight: FontWeight.w700,
-      color: darkThemeTextColor,
-    ),
-    displayMedium: GoogleFonts.roboto(
-      fontSize: 24.0,
-      fontWeight: FontWeight.w700,
-      color: darkThemeTextColor,
-    ),
-    displaySmall: GoogleFonts.roboto(
-      fontSize: 18.0,
-      fontWeight: FontWeight.w600,
-      color: darkThemeTextColor,
-    ),
-    headlineLarge: GoogleFonts.roboto(
-      fontSize: 16.0,
-      fontWeight: FontWeight.w600,
-      color: darkThemeTextColor,
-    ),
-    headlineMedium: GoogleFonts.roboto(
-      fontSize: 14.0,
-      fontWeight: FontWeight.w600,
-      color: darkThemeTextColor,
-    ),
-    headlineSmall: GoogleFonts.roboto(
-      fontSize: 12.0,
-      fontWeight: FontWeight.w500,
-      color: darkThemeTextColor,
-    ),
-    titleLarge: GoogleFonts.roboto(
-      fontSize: 12.0,
-      fontWeight: FontWeight.w500,
-      color: darkThemeTextColor,
-    ),
-    titleMedium: GoogleFonts.roboto(
-      fontSize: 12.0,
-      fontWeight: FontWeight.w500,
-      color: darkThemeTextColor,
-    ),
-    titleSmall: GoogleFonts.roboto(
-      fontSize: 10.0,
-      fontWeight: FontWeight.w400,
-      color: darkThemeTextColor,
-    ),
-  );
+ 
   InputDecorationTheme inputDecorationTheme = const InputDecorationTheme();
 
   static IconThemeData darkIconTheme =
@@ -167,7 +107,7 @@ class ArdillaAppTheme {
         selectedRowColor: const Color(0xfff5f5ff),
         backgroundColor: const Color(0xffFFFFFF),
         toggleableActiveColor: const Color(0xffE7CDFE),
-        dividerColor: const Color(0xffCBF3FC),
+        dividerColor: const Color(0xff9CA3AF),
         disabledColor: const Color(0xffBBBFC1),
         dialogBackgroundColor: Colors.white,
         drawerTheme: drawerTheme,
@@ -197,47 +137,5 @@ class ArdillaAppTheme {
         primaryTextTheme: primaryTextThemeLight);
   }
 
-  static ThemeData dark() {
-    Color darkThemeColor = const Color(0xff00161f);
-    Color darkCardColor = const Color(0xff062735);
-
-    return ThemeData(
-        brightness: Brightness.dark,
-        checkboxTheme: CheckboxThemeData(
-          fillColor: MaterialStateColor.resolveWith(
-            (states) {
-              return Colors.black;
-            },
-          ),
-        ),
-        indicatorColor: const Color(0xffF3E6FF),
-        secondaryHeaderColor: const Color(0xff4d4d4d),
-        primaryColor: const Color(0xff000000),
-        primaryColorDark: darkThemeColor,
-        backgroundColor: darkThemeColor,
-        dialogBackgroundColor: darkCardColor,
-        canvasColor: darkCardColor,
-        cardColor: darkCardColor,
-        selectedRowColor: const Color(0xff005a80),
-        drawerTheme: darkThemeDrawerTheme,
-        scaffoldBackgroundColor: darkThemeColor,
-        shadowColor: Colors.black87,
-        iconTheme: darkIconTheme,
-        appBarTheme: AppBarTheme(
-            foregroundColor: Colors.black,
-            backgroundColor: darkCardColor,
-            systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarColor: darkCardColor,
-                statusBarBrightness: Brightness.dark,
-                systemNavigationBarContrastEnforced: false,
-                systemNavigationBarColor: const Color(0xffF3E6FF))),
-        floatingActionButtonTheme: const FloatingActionButtonThemeData(
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.black,
-        ),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-            selectedItemColor: const Color(0xff29ABE2),
-            backgroundColor: darkCardColor),
-        primaryTextTheme: primaryTextThemeDark);
-  }
+  
 }

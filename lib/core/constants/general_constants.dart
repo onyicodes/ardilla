@@ -14,4 +14,15 @@ enum ListSpacingValue {
 }
 
 
+class GeneralConstants {
+  static String emailHint = "Email address";
+  static String phoneHint = "Phone Number";
+  static String userNameHint = "Username";
+  static String firstNameHint = "First Name";
+  static String lastNameHint = "Last Name";
+  static String refCodeHint = "Invitation code (optional)";
+  static String passwordHint = "Password";
+}
+
+
 enum RequestStatus { initial, loading, success, error }

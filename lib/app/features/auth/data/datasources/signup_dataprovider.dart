@@ -7,8 +7,6 @@ import 'dart:async';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 
-import 'package:dartz/dartz.dart';
-
 abstract class AuthLocalDataProvider {
   Future<bool> checkUserExists({required String email});
   Future<bool> signup({required SignupParams params});
@@ -18,7 +16,7 @@ abstract class AuthLocalDataProvider {
 class AuthLocalDataProviderImpl implements AuthLocalDataProvider {
   static final AuthLocalDataProviderImpl _dbHelper =
       AuthLocalDataProviderImpl._internal();
-  String userTable = "userTable";
+  String userTable = "accountTable";
   String colId = "id";
   String colUsername = "username";
   String colFirstname = "firstName";
@@ -46,7 +44,7 @@ class AuthLocalDataProviderImpl implements AuthLocalDataProvider {
 
   Future<Database> initializeDb() async {
     Directory dir = await getApplicationDocumentsDirectory();
-    String path = "${dir.path}ardilla.db";
+    String path = "${dir.path}ardilla_local.db";
 
     var ardillaDb = await openDatabase(path, version: 1, onCreate: _createDb);
     return ardillaDb;
@@ -64,7 +62,7 @@ class AuthLocalDataProviderImpl implements AuthLocalDataProvider {
 
     try {
       final user = await db
-          .rawQuery("SELECT * FROM $userTable where $colEmail = $email");
+          .rawQuery("SELECT * FROM $userTable where $colEmail = '$email'");
 
       return user.isNotEmpty;
     } catch (e) {
@@ -77,12 +75,22 @@ class AuthLocalDataProviderImpl implements AuthLocalDataProvider {
     Database db = await this.db;
     int result;
     try {
-      result = await db.rawInsert(
-          'INSERT INTO Test($colFirstname, $colLastname, $colPhoneNumber, $colUsername, $colEmail, $colRefCode, $colPassword, $colDateCreated)'
-          'VALUES(${params.firstName}, ${params.lastName}, ${params.phone}, ${params.userName}, ${params.email}, ${params.refCode},  ${params.password}, ${DateTime.now().toIso8601String()} )');
-      ;
-      return result != 0; //result == 0 mean deleted
+      final user = await db.rawQuery(
+          "SELECT * FROM $userTable WHERE $colEmail = ?",[params.email]);
+      if (user.isEmpty) {
+        print(user);
+        result = await db.rawInsert(
+            "INSERT INTO $userTable ('$colFirstname', '$colLastname', '$colPhoneNumber', '$colUsername', '$colEmail', '$colRefCode', '$colPassword', '$colDateCreated')"
+            "VALUES('${params.firstName}', '${params.lastName}', '${params.phone}', '${params.userName}', '${params.email}', '${params.refCode}','${params.password}', '${DateTime.now().toIso8601String()}')");
+      } else {
+        throw AccountExistsException();
+      }
+
+      return result != 0; //result == 0 not inserted
+    } on AccountExistsException {
+      throw AccountExistsException();
     } catch (e) {
+      print(e);
       throw CacheException();
     }
   }
@@ -92,9 +100,15 @@ class AuthLocalDataProviderImpl implements AuthLocalDataProvider {
     Database db = await this.db;
     try {
       final user = await db.rawQuery(
-          "SELECT * FROM $userTable where $colEmail = ${params.email} AND $colPassword = ${params.password}");
+          "SELECT * FROM $userTable where $colEmail = '${params.email}' AND $colPassword = '${params.password}'");
+      if (user.isEmpty) {
+        throw AccountNotFoundException();
+      }
       return UserModel.fromJson(user.first);
+    } on AccountNotFoundException {
+      throw AccountNotFoundException();
     } catch (e) {
+      print(e);
       throw CacheException();
     }
   }

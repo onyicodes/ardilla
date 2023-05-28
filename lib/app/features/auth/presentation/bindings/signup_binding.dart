@@ -8,34 +8,35 @@ import 'package:ardilla/app/features/auth/presentation/controllers/signup_contro
 import 'package:ardilla/core/validators/auth_field_validator.dart';
 import 'package:get/get.dart';
 
-final getSignupControllerSl = GetInstance();
+final getAuthControllerSl = GetInstance();
 
 class AuthBinding implements Bindings {
   @override
   void dependencies() {
-    getSignupControllerSl.lazyPut<AuthController>(() => AuthController(
-        emailSignupUsecase: getSignupControllerSl(),
-        authFieldValidationPage: getSignupControllerSl(),
-        checkIfUserExistsUsecase: getSignupControllerSl(),
-        googleSignupUsecase: getSignupControllerSl(),
-        storeBox: getSignupControllerSl()));
+    getAuthControllerSl.lazyPut<AuthController>(() => AuthController(
+        emailSignupUsecase: getAuthControllerSl(),
+        authFieldValidationPage: getAuthControllerSl(),
+        flutterSecureStorage: getAuthControllerSl(),
+        checkIfUserExistsUsecase: getAuthControllerSl(),
+        signinUsecase: getAuthControllerSl(),
+        storeBox: getAuthControllerSl()));
 
-    getSignupControllerSl.lazyPut<SignupUsecase>(
-        () => SignupUsecase(repository: getSignupControllerSl()));
+    getAuthControllerSl.lazyPut<SignupUsecase>(
+        () => SignupUsecase(repository: getAuthControllerSl()));
 
-    getSignupControllerSl.lazyPut<SigninUsecase>(
-        () => SigninUsecase(repository: getSignupControllerSl()));
+    getAuthControllerSl.lazyPut<SigninUsecase>(
+        () => SigninUsecase(repository: getAuthControllerSl()));
 
-    getSignupControllerSl.lazyPut<CheckIfUserExistsUsecase>(
-        () => CheckIfUserExistsUsecase(repository: getSignupControllerSl()));
+    getAuthControllerSl.lazyPut<CheckIfUserExistsUsecase>(
+        () => CheckIfUserExistsUsecase(repository: getAuthControllerSl()));
 
-    getSignupControllerSl
+    getAuthControllerSl
         .lazyPut<AuthFieldValidationPage>(() => AuthFieldValidationPage());
 
-    getSignupControllerSl.lazyPut<AuthRepository>(
-        () => AuthRepositoryImpl(dataProvider: getSignupControllerSl()));
+    getAuthControllerSl.lazyPut<AuthRepository>(
+        () => AuthRepositoryImpl(dataProvider: getAuthControllerSl()));
 
-    getSignupControllerSl
+    getAuthControllerSl
         .lazyPut<AuthLocalDataProvider>(() => AuthLocalDataProviderImpl());
   }
 }

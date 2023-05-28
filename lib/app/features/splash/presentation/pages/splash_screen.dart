@@ -1,7 +1,6 @@
 import 'package:ardilla/app/features/splash/presentation/controllers/splash_screen_controller.dart';
 import 'package:ardilla/core/constants/assets_constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 

@@ -33,11 +33,12 @@ class UserModel extends Equatable {
       );
 
   Map<String, dynamic> toMap() => {
+        "id":id,
         "email": email,
-        "name": userName,
+        "username": userName,
         "phone": phone,
         "firstName": firstName,
-        "countryCode": lastName,
+        "lastName": lastName,
         "refCode": refCode,
         "dateCreated": dateCreated.toIso8601String()
       };

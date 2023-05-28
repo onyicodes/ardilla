@@ -1,5 +1,4 @@
 import 'package:ardilla/app/features/onboarding/domain/entities/onboarding_content_entity.dart';
-import 'package:ardilla/app/features/onboarding/presentation/widgets/onboarding_page_indicator_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
