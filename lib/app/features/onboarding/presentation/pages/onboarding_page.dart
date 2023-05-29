@@ -31,7 +31,7 @@ class OnboardingPage extends GetView<OnboardingController> {
                 shrinkWrap: true,
                 children: [
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.65,
+                    height: MediaQuery.of(context).size.height * 0.67,
                     child: PageView(
                       physics: const BouncingScrollPhysics(),
                       controller: pageController,

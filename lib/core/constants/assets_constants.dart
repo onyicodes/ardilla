@@ -7,6 +7,8 @@ class AssetsConstants {
   static const String lastNameIconSVG = 'assets/svg/auth/last_name_icon.svg';
   static const String passwordIconSVG = 'assets/svg/auth/password_icon.svg';
   static const String phoneIconSVG = 'assets/svg/auth/phone_icon.svg';
+  static const String hideBalanceIconSVG = 'assets/svg/icons/hide_balance_icon.svg';
+  static const String viewBalanceIconSVG = 'assets/svg/icons/view_balance_icon.svg';
   static const String usernameIconSVG = 'assets/svg/auth/username_icon.svg';
    static const String splashScreenBgPNG = 'assets/images/splash_bg.png';
    static const String authBgPNG = 'assets/images/auth_page_bg.png';

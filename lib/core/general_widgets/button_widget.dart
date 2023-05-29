@@ -13,7 +13,8 @@ class CustomButton extends StatelessWidget {
   final bool loading;
   final Color borderColor;
   final Color? iconColor;
-   TextStyle? textStyle;
+  TextStyle? textStyle;
+  final EdgeInsets padding;
   final TextTheme primaryTextTheme;
 
   CustomButton(
@@ -29,11 +30,11 @@ class CustomButton extends StatelessWidget {
       this.textColor = Colors.white,
       this.iconColor,
       this.height = 54.0,
+      this.padding = EdgeInsets.zero,
       this.loading = false,
       required this.primaryTextTheme})
       : super(key: key) {
-        textStyle ??= primaryTextTheme.displaySmall!;
-    
+    textStyle ??= primaryTextTheme.displaySmall!;
   }
 
   @override
@@ -45,6 +46,7 @@ class CustomButton extends StatelessWidget {
           elevation: MaterialStateProperty.all(0),
           minimumSize: MaterialStateProperty.all(Size(width, height)),
           maximumSize: MaterialStateProperty.all(Size(width, height)),
+          padding: MaterialStateProperty.all(padding),
           shape: MaterialStateProperty.all<OutlinedBorder>(
               RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(
@@ -59,7 +61,7 @@ class CustomButton extends StatelessWidget {
           ),
           backgroundColor: MaterialStateProperty.all(
               loading || onPressed == null
-                  ?Theme.of(context).disabledColor
+                  ? Theme.of(context).disabledColor
                   : backgroundColor)),
       child: loading
           ? const CircularProgressIndicator(
@@ -70,16 +72,12 @@ class CustomButton extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if (icon != null)
-                  icon!
-                    ,
+                  if (icon != null) icon!,
                   if (icon != null)
                     const SizedBox(
                       width: 12,
                     ),
-                  Text(label,
-                      style: textStyle!
-                          .copyWith(color: textColor)),
+                  Text(label, style: textStyle!.copyWith(color: textColor)),
                 ],
               ),
             ),

@@ -6,19 +6,16 @@ class AuthService extends GetxService {
   GetStorage storeBox = Get.find<GetStorage>();
 
   bool isLoggedIn() {
-    String lastUserId = storeBox.read(CacheKeys.lastUserID) ?? "";
-    bool? isLoggedIn = storeBox.read<bool>(CacheKeys.isLoggedIn(lastUserId));
+    bool isLoggedIn = storeBox.read<bool>(CacheKeys.isLoggedIn)??false;
     
-    if (isLoggedIn != null && isLoggedIn) {
-      return true;
-    }
-    return false;
+    
+    return isLoggedIn;
   }
 
 
 
   bool hasOnboarded() {
-    
+
     bool userOnboarded =
         storeBox.read<bool>(CacheKeys.hasOnboarded) ?? false;
 

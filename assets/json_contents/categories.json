@@ -1,0 +1,10 @@
+[
+    {"icon": "assets/svg/categories/san_icon.svg",
+     "label":"San"},
+     {"icon":"assets/svg/categories/save_icon.svg",
+     "label":"Save"},
+     {"icon":"assets/svg/categories/learn_icon.svg",
+     "label":"Learn"},
+     {"icon":"assets/svg/categories/payment_icon.svg",
+     "label":"Payment"}
+]

@@ -1,6 +1,8 @@
 import 'dart:ui';
 
+import 'package:ardilla/core/constants/assets_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class CustomLoadingIndicator extends StatelessWidget {
@@ -37,9 +39,9 @@ class CustomLoadingIndicator extends StatelessWidget {
                   height: 50,
                   padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor,
+                      color: Theme.of(context).primaryColor,
                       borderRadius: BorderRadius.circular(50)),
-                  child: Image.asset('assets/images/icons/vuba_v_icon.png'),
+                  child: SvgPicture.asset(AssetsConstants.logoSVG, width: 40,),
                 ),
               ],
             ),

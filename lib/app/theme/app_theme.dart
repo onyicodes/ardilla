@@ -73,8 +73,7 @@ class ArdillaAppTheme {
  
   InputDecorationTheme inputDecorationTheme = const InputDecorationTheme();
 
-  static IconThemeData darkIconTheme =
-      const IconThemeData(color: Color(0xffafafaf));
+ 
   static IconThemeData lightIconTheme =
       const IconThemeData(color: Color(0xff8807F7));
   static BottomAppBarTheme lightBottomAppBarTheme =

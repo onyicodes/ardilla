@@ -25,4 +25,14 @@ class GeneralConstants {
 }
 
 
+enum CurrencyType {
+  NGN("₦"),
+  USD("\$");
+
+ const CurrencyType(this.symbol);
+  final String symbol;
+  
+}
+
+
 enum RequestStatus { initial, loading, success, error }

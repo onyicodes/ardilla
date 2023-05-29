@@ -15,9 +15,9 @@ saveLoginData(
   String lastUserId = userModel.id.toString();
   await storeBox.write(CacheKeys.lastUserID, lastUserId);
   await secureStorage.write(
-      key: CacheKeys.loginEmail(lastUserId), value: email);
+      key: CacheKeys.loginEmail, value: email);
   await secureStorage.write(
-      key: CacheKeys.password(lastUserId), value: password);
-  await storeBox.write(CacheKeys.userData(lastUserId), userModel.toMap());
-  await storeBox.write(CacheKeys.isLoggedIn(lastUserId), true);
+      key: CacheKeys.password, value: password);
+  await storeBox.write(CacheKeys.userData, userModel.toMap());
+  await storeBox.write(CacheKeys.isLoggedIn, true);
 }

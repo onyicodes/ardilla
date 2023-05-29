@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:ardilla/app/features/auth/presentation/controllers/signup_controller.dart';
 import 'package:ardilla/core/constants/assets_constants.dart';
 import 'package:ardilla/core/constants/general_constants.dart';
@@ -24,8 +26,7 @@ class WelcomeBottomCard extends StatelessWidget {
                 topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
             children: [
               CustomListSpacing(
                   spacingValue: ListSpacingValue.spacingV32.value),
@@ -55,7 +56,10 @@ class WelcomeBottomCard extends StatelessWidget {
                     },
                     errorText: _.emailError);
               }),
-              Expanded(
+              CustomListSpacing(
+                  spacingValue: ListSpacingValue.spacingV100.value),
+              Padding(
+                padding:EdgeInsets.fromViewPadding(ViewPadding.zero, 2),
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: GetX<AuthController>(builder: (_) {

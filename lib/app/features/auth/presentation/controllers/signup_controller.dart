@@ -233,7 +233,7 @@ class AuthController extends GetxController {
               storeBox: storeBox,
               password: params.password,
               secureStorage: flutterSecureStorage);
-          Get.offAndToNamed(Routes.home);
+          Get.offAndToNamed(Routes.landing);
           signinRequestStatus = RequestStatus.success;
         });
       } else {

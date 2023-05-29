@@ -4,8 +4,8 @@ abstract class Routes {
   static const initial = '/';
   static const onboarding = "/onboarding";
   static const auth = "/auth";
-  static const landing = '/landing';
-  static const home = "/home";
+  static const home = '/home';
+  static const landing = "/landing";
   static const verifyEmailPage = "/verify-email";
   static const createAccountPage = "/createAccount";
 }
