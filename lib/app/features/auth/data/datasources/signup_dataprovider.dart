@@ -26,6 +26,7 @@ class AuthLocalDataProviderImpl implements AuthLocalDataProvider {
   String colPhoneNumber = "phoneNumber";
   String colRefCode = "refCode";
   String colPassword = "password";
+  String colRank = "rank";
 
   AuthLocalDataProviderImpl._internal();
 
@@ -44,7 +45,7 @@ class AuthLocalDataProviderImpl implements AuthLocalDataProvider {
 
   Future<Database> initializeDb() async {
     Directory dir = await getApplicationDocumentsDirectory();
-    String path = "${dir.path}ardilla_local.db";
+    String path = "${dir.path}ardilla_ldb.db";
 
     var ardillaDb = await openDatabase(path, version: 1, onCreate: _createDb);
     return ardillaDb;
@@ -53,7 +54,7 @@ class AuthLocalDataProviderImpl implements AuthLocalDataProvider {
   void _createDb(Database db, int newVersion) async {
     await db.execute(
         "CREATE TABLE $userTable($colId INTEGER PRIMARY KEY autoincrement, $colUsername TEXT, "
-        "$colFirstname TEXT, $colLastname TEXT, $colEmail TEXT, $colDateCreated DATETIME, $colPhoneNumber TEXT, $colPassword TEXT, $colRefCode TEXT)");
+        "$colFirstname TEXT, $colLastname TEXT, $colRank TEXT, $colEmail TEXT, $colDateCreated DATETIME, $colPhoneNumber TEXT, $colPassword TEXT, $colRefCode TEXT)");
   }
 
   @override

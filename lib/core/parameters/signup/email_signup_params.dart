@@ -8,6 +8,7 @@ class SignupParams extends Equatable {
   final String password;
   final String lastName;
   final String refCode;
+  final String rank;
 
   const SignupParams({
     required this.email,
@@ -17,16 +18,18 @@ class SignupParams extends Equatable {
     required this.firstName,
     required this.refCode,
     required this.lastName,
+    required this.rank
   });
 
   Map<String, dynamic> toMap() => {
         "email": email,
         "name": userName,
         "phone": phone,
-        "firstName":firstName,
+        "firstName": firstName,
         "password": password,
         "countryCode": lastName,
         "refCode": refCode,
+        "rank": rank
       };
 
   @override

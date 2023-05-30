@@ -1,0 +1,18 @@
+[
+    {"bgImage": "assets/images/banner2/save.png",
+     "title":"20% Monthly ROI",
+     "subTitle":"Start Investing",
+     "icon":"assets/images/banner2/save_icon.png",
+     "label":"Unprecedented access to investment opportunities"},
+     {"bgImage":"assets/images/banner2/invest.png",
+     "title":"12% annual  ROI",
+     "subTitle":"Start Investing",
+     "icon":"assets/images/banner2/invest_icon.png",
+     "label":"Build your savings the right way"},
+     {"bgImage":"assets/images/banner2/insure.png",
+     "title":"12% Annual  ROI",
+     "subTitle":"Make youe first claim",
+     "icon":"assets/images/banner2/insure_icon.png",
+     "label":"Insurance policies you can trust"}
+    
+]

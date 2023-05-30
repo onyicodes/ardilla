@@ -1,0 +1,15 @@
+[
+    {"bgImage": "assets/images/banner3/banner1.png",
+     "title":"Cadet",
+     "subTitle":"Move up your Rank by completing transactions"},
+     {"bgImage":"assets/images/banner3/banner2.png",
+     "title":"Beginner",
+     "subTitle":"Move up your Badge by completing transactions"},
+     {"bgImage":"assets/images/banner3/banner3.png",
+     "title":"Refer & Earn",
+     "subTitle":"Invite using your Kode Hex."},
+     {"bgImage":"assets/images/banner3/banner4.png",
+     "title":"Financial nuggets",
+     "subTitle":"Take a step towards financial literacy with financial advice from the best minds in the game."}
+    
+]

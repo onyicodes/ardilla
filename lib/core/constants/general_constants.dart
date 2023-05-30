@@ -35,4 +35,10 @@ enum CurrencyType {
 }
 
 
+enum RankType {
+  Cadet,
+  Beginner; 
+}
+
+
 enum RequestStatus { initial, loading, success, error }

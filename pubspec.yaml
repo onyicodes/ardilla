@@ -87,6 +87,8 @@ flutter:
     - assets/images/icons/
     - assets/images/
     - assets/images/banners/
+    - assets/images/banner2/
+    - assets/images/banner3/
     - assets/images/error_icons/
     - assets/svg/nav_bar/selected/
     - assets/svg/nav_bar/unselected/

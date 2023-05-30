@@ -14,13 +14,19 @@ import 'package:get/get.dart';
 
 final hController = homeControllerSl<HomeController>();
 
-class BannerCard extends StatelessWidget {
+class BannerCard extends StatefulWidget {
   final CarouselEntity carouselEntity;
 
   final int index;
   const BannerCard(
       {super.key, required this.carouselEntity, required this.index});
 
+  @override
+  State<BannerCard> createState() => _BannerCardState();
+}
+
+class _BannerCardState extends State<BannerCard> {
+   bool hideBalance = false;
   @override
   Widget build(BuildContext context) {
     TextTheme primaryTextTheme = Theme.of(context).primaryTextTheme;
@@ -29,7 +35,7 @@ class BannerCard extends StatelessWidget {
       children: [
         Image(
           image: AssetImage(
-            carouselEntity.image,
+            widget.carouselEntity.image,
           ),
           height: MediaQuery.of(context).size.height * 0.3,
         ),
@@ -44,16 +50,17 @@ class BannerCard extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  carouselEntity.title,
+                  widget.carouselEntity.title,
                   style: primaryTextTheme.headlineLarge!.copyWith(
-                      color: index != 2 ? Colors.white : Color(0xff3D0072)),
+                      color:
+                          widget.index != 2 ? Colors.white : Color(0xff3D0072)),
                 ),
                 const SizedBox(
                   width: 20,
                 ),
-                if (carouselEntity.change.isNotEmpty)
+                if (widget.carouselEntity.change.isNotEmpty)
                   CustomButton(
-                    label: carouselEntity.change,
+                    label: widget.carouselEntity.change,
                     onPressed: () {},
                     width: 50,
                     height: 18.6,
@@ -68,52 +75,55 @@ class BannerCard extends StatelessWidget {
               ],
             ),
             CustomListSpacing(
-              spacingValue: index == 0
+              spacingValue: widget.index == 0
                   ? ListSpacingValue.spacingV8.value
                   : ListSpacingValue.spacingV24.value,
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.75,
-              child: GetX<HomeController>(builder: (_) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      _.hideBalance
-                          ? "*********"
-                          : currencyFormatter(
-                              amount: carouselEntity.amount,
-                              currencySymbol: carouselEntity.currency),
-                      style: primaryTextTheme.displayMedium!.copyWith(
-                          color: index != 2 ? Colors.white : Color(0xff3D0072)),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        _.hideBalance = !_.hideBalance;
-                      },
-                      child: SvgPicture.asset(
-                        !_.hideBalance
-                            ? AssetsConstants.viewBalanceIconSVG
-                            : AssetsConstants.hideBalanceIconSVG,
-                        color: index != 2
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    hideBalance
+                        ? "*********"
+                        : currencyFormatter(
+                            amount: widget.carouselEntity.amount,
+                            currencySymbol: widget.carouselEntity.currency),
+                    style: primaryTextTheme.displayMedium!.copyWith(
+                        color: widget.index != 2
                             ? Colors.white
-                            : Theme.of(context).primaryColor,
-                      ),
+                            : Color(0xff3D0072)),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        hideBalance = !hideBalance;
+                      });
+                      
+                    },
+                    child: SvgPicture.asset(
+                      !hideBalance
+                          ? AssetsConstants.viewBalanceIconSVG
+                          : AssetsConstants.hideBalanceIconSVG,
+                      color: widget.index != 2
+                          ? Colors.white
+                          : Theme.of(context).primaryColor,
                     ),
-                  ],
-                );
-              }),
+                  ),
+                ],
+              ),
             ),
             CustomListSpacing(
               spacingValue: ListSpacingValue.spacingV16.value,
             ),
-            if (index == 0)
+            if (widget.index == 0)
               Text(
                 "*********",
                 style:
                     primaryTextTheme.bodyLarge!.copyWith(color: Colors.white),
               ),
-            if (index == 0)
+            if (widget.index == 0)
               Row(
                 children: [
                   Text(
@@ -130,31 +140,31 @@ class BannerCard extends StatelessWidget {
                   )
                 ],
               ),
-            if (index != 0)
+            if (widget.index != 0)
               CustomListSpacing(
                   spacingValue: ListSpacingValue.spacingV32.value),
-            if (index != 0)
+            if (widget.index != 0)
               GetX<HomeController>(builder: (_) {
                 return Row(
                   children: [
                     CurrencyConvertTab(
                       selectedIndex: _.currentExchangeTab,
-                      unselectedTextColor: index == 1
+                      unselectedTextColor: widget.index == 1
                           ? Colors.white
                           : Theme.of(context).primaryColor,
                       onSelectLabel: (index) {
                         _.changeExchangeTab(index);
                       },
-                      label1: carouselEntity.exchangeFrom,
-                      label2: carouselEntity.exchangeTo,
+                      label1: widget.carouselEntity.exchangeFrom,
+                      label2: widget.carouselEntity.exchangeTo,
                     ),
                     SizedBox(
                       width: 4,
                     ),
                     Text(
-                      "${currencySymbolExtractor(symbol: carouselEntity.exchangeFrom)}${_.currentExchangeTab == 1 ? carouselEntity.exchangeRate : 1} /${currencySymbolExtractor(symbol: carouselEntity.exchangeTo)}${_.currentExchangeTab == 0 ? (1 / carouselEntity.exchangeRate).toStringAsFixed(3) : 1}",
+                      "${currencySymbolExtractor(symbol: widget.carouselEntity.exchangeFrom)}${_.currentExchangeTab == 1 ? widget.carouselEntity.exchangeRate : 1} /${currencySymbolExtractor(symbol: widget.carouselEntity.exchangeTo)}${_.currentExchangeTab == 0 ? (1 / widget.carouselEntity.exchangeRate).toStringAsFixed(3) : 1}",
                       style: primaryTextTheme.headlineSmall!.copyWith(
-                          color: index == 1
+                          color: widget.index == 1
                               ? Colors.white
                               : Theme.of(context).primaryColor),
                     )
@@ -163,7 +173,7 @@ class BannerCard extends StatelessWidget {
               }),
           ]),
         ),
-        if (index == 1)
+        if (widget.index == 1)
           Positioned(
               right: 30,
               top: MediaQuery.of(context).size.height * 0.16,

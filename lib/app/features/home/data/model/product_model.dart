@@ -2,7 +2,7 @@
 //
 //     final productEntity = productEntityFromMap(jsonString);
 
-import 'package:ardilla/app/features/home/data/model/reviews_model.dart';
+import 'package:ardilla/app/features/home/data/model/cash_flow_model.dart';
 import 'package:ardilla/app/features/home/data/model/seller_info_model.dart';
 import 'package:ardilla/app/features/home/data/model/shipping_model.dart';
 
@@ -27,7 +27,7 @@ class ProductModel {
   final ShippingInfoModel shippingInfo;
   final SellerInforModel sellerInfor;
   final List<String> storeReviewsWithMedia;
-  final List<ReviewModel> reviews;
+  final List<CashFlowModel> reviews;
 
   ProductModel({
     required this.id,
@@ -75,8 +75,8 @@ class ProductModel {
         sellerInfor: SellerInforModel.fromMap(json["sellerInfor"]),
         storeReviewsWithMedia:
             List<String>.from(json["storeReviewsWithMedia"].map((x) => x)),
-        reviews: List<ReviewModel>.from(
-            json["reviews"].map((x) => ReviewModel.fromMap(x))),
+        reviews: List<CashFlowModel>.from(
+            json["reviews"].map((x) => CashFlowModel.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {
@@ -90,16 +90,15 @@ class ProductModel {
         "amountSold": amountSold,
         "brand": brand,
         "color": color,
-        "material":material,
-        "condition":condition,
-        "category":category,
-        "heavy":heavy,
+        "material": material,
+        "condition": condition,
+        "category": category,
+        "heavy": heavy,
         "favourited": favourited,
         "description": description,
         "shippingInfo": shippingInfo.toMap(),
         "sellerInfor": sellerInfor.toMap(),
         "storeReviewsWithMedia":
             List<dynamic>.from(storeReviewsWithMedia.map((x) => x)),
-        "reviews": List<dynamic>.from(reviews.map((x) => x.toMap())),
       };
 }

@@ -183,6 +183,7 @@ class AuthController extends GetxController {
         firstName: firstNameController.text,
         userName: userNameController.text,
         phone: phoneController.text,
+        rank:RankType.Cadet.name,
         password: passwordController.text.trim(),
         lastName: lastNameController.text,
         refCode: refCodeController.text);

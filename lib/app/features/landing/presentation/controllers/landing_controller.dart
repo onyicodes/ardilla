@@ -1,10 +1,12 @@
+import 'package:ardilla/app/routes/app_pages.dart';
+import 'package:ardilla/core/constants/keys/cache_keys.dart';
 import 'package:ardilla/core/general_widgets/custom_snackbar.dart';
+import 'package:ardilla/core/models/user_model.dart';
 import 'package:ardilla/core/util/logout_user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
-
 
 class LandingController extends GetxController {
   final GetStorage storeBox;
@@ -24,11 +26,20 @@ class LandingController extends GetxController {
   set currentPageIndex(value) => _currentPageIndex.value = value;
   set screenWidth(value) => _screenWidth.value = value;
   set lastExitTime(value) => _lastExitTime.value = value;
+  late UserModel userModel;
 
   @override
   onInit() {
     super.onInit();
     sideMenuKey = GlobalKey<SideMenuState>();
+    final json = storeBox.read(CacheKeys.userData);
+
+    try {
+      userModel = UserModel.fromJson(json);
+    } catch (e) {
+      logUserOut(storeBox: storeBox);
+      Get.offAndToNamed(Routes.auth);
+    }
   }
 
   logoutUser() async {
