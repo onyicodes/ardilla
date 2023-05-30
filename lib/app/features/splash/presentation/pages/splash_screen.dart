@@ -26,8 +26,8 @@ class SplashScreenPage extends GetView<SplashScreenController> {
           child: Align(
               alignment: Alignment.center,
               child:SizedBox(
-                width: 164,
-                height: 174,
+                width: 144,
+                height: 156,
                 child:  SvgPicture.asset(
                                       AssetsConstants.logoSVG,
                                       ))),

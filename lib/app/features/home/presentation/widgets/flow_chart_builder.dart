@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 
 class _LineChart extends StatelessWidget {
   final CashFlowModel cashFlowModel;
-  const _LineChart(
-      { required this.cashFlowModel});
-
+  const _LineChart({required this.cashFlowModel});
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +52,6 @@ class _LineChart extends StatelessWidget {
         lineChartBarData2_3,
       ];
 
- 
-
   SideTitles get bottomTitles => SideTitles(
         showTitles: false,
       );
@@ -96,15 +92,15 @@ class _LineChart extends StatelessWidget {
       );
 }
 
-class LineChartSample1 extends StatefulWidget {
+class LineBuilder extends StatefulWidget {
   final CashFlowModel cashFlowModel;
-  const LineChartSample1({super.key, required this.cashFlowModel});
+  const LineBuilder({super.key, required this.cashFlowModel});
 
   @override
-  State<StatefulWidget> createState() => LineChartSample1State();
+  State<StatefulWidget> createState() => LineBuilderState();
 }
 
-class LineChartSample1State extends State<LineChartSample1> {
+class LineBuilderState extends State<LineBuilder> {
   late CashFlowModel cashFlowModel;
 
   @override
@@ -115,40 +111,54 @@ class LineChartSample1State extends State<LineChartSample1> {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme primaryTextTheme = Theme.of(context).primaryTextTheme;
     return SizedBox(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: const EdgeInsets.only(right:30.0),
-            child: CashFlowTitle(flowChange: cashFlowModel.flowChange,),
+            padding: const EdgeInsets.only(right: 30.0),
+            child: CashFlowTitle(
+              flowChange: cashFlowModel.flowChange,
+            ),
           ),
           Stack(
             children: <Widget>[
               Stack(
                 alignment: Alignment.centerRight,
                 children: <Widget>[
-                   SizedBox(
-                    height:60,
-                    child: _LineChart(cashFlowModel: cashFlowModel)),
+                  SizedBox(
+                      height: 60,
+                      child: _LineChart(cashFlowModel: cashFlowModel)),
                   Positioned(
-                    right:45,
-                    bottom: 10,
-                    child: Row(children: [
-                      Row(
-                        children: [
-                         const Icon(Icons.check_circle, color:Color.fromRGBO(255, 113, 139, 1) ,),
-                          Text(cashFlowModel.data1)
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          const Icon(Icons.circle),
-                          Text(cashFlowModel.data2)
-                        ],
-                      )
-                    ],),
+                    right: 30,
+                    bottom: 5,
+                    child: Row(
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.check_circle,
+                              color: Color.fromRGBO(255, 113, 139, 1),
+                            ),
+                            Text(
+                              cashFlowModel.data1,
+                              style: primaryTextTheme.titleMedium,
+                            )
+                          ],
+                        ),
+                        SizedBox(width: 4,),
+                        Row(
+                          children: [
+                            const Icon(Icons.circle),
+                            Text(cashFlowModel.data2,
+                            style: primaryTextTheme.titleMedium,
+                            )
+                          ],
+                        )
+                      ],
+                    ),
                   )
                 ],
               ),

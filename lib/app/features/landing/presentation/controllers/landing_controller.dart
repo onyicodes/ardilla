@@ -1,5 +1,6 @@
 import 'package:ardilla/app/routes/app_pages.dart';
 import 'package:ardilla/core/constants/keys/cache_keys.dart';
+import 'package:ardilla/core/general_widgets/custom_dialog_box.dart';
 import 'package:ardilla/core/general_widgets/custom_snackbar.dart';
 import 'package:ardilla/core/models/user_model.dart';
 import 'package:ardilla/core/util/logout_user.dart';
@@ -43,8 +44,21 @@ class LandingController extends GetxController {
   }
 
   logoutUser() async {
-    await logUserOut(storeBox: storeBox);
-    customSnackbar(title: "Success", message: "You've successfully logged out");
+    Get.dialog(CustomDialogBox(
+      title: "Are you sure you want to LOG OUT?",
+      onTapCancel: () {
+        Get.back();
+      },
+      onTapYes: () async {
+        await logUserOut(storeBox: storeBox);
+        customSnackbar(
+            title: "Success", message: "You've successfully logged out");
+      },
+      yesBgColor: Color(0xffFCE4EB),
+      yesBorderColor: Color(0xffFCE4EB),
+      yesButtonTitle: "Confirm",
+      yesTextColor: Color(0xffE8356D),
+    ));
   }
 
   toggleMenu() {

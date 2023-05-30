@@ -1,7 +1,9 @@
 import 'package:ardilla/app/features/home/data/model/benefits_model.dart';
 import 'package:ardilla/app/features/home/data/model/cash_flow_model.dart';
+import 'package:ardilla/app/features/home/data/model/footer_model.dart';
 import 'package:ardilla/app/features/home/data/model/product_model.dart';
 import 'package:ardilla/app/features/home/data/model/rank_model.dart';
+import 'package:ardilla/app/features/home/data/model/video_model.dart';
 import 'package:ardilla/app/features/home/domain/entities/carousel_entity.dart';
 import 'package:ardilla/app/features/home/domain/entities/category_entity.dart';
 import 'package:ardilla/app/features/home/domain/usecases/fetch_benefits_usecase.dart';
@@ -10,10 +12,13 @@ import 'package:ardilla/app/features/home/domain/usecases/fetch_cash_flow_usecas
 import 'package:ardilla/app/features/home/domain/usecases/fetch_categories_usecase.dart';
 import 'package:ardilla/app/features/home/domain/usecases/fetch_rank_usecase.dart';
 import 'package:ardilla/app/features/landing/presentation/controllers/landing_controller.dart';
+import 'package:ardilla/core/constants/failure_to_error_message.dart';
 import 'package:ardilla/core/constants/general_constants.dart';
 import 'package:ardilla/core/general_widgets/custom_snackbar.dart';
 import 'package:ardilla/core/models/user_model.dart';
 import 'package:ardilla/core/parameters/no_params.dart';
+import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+import 'package:video_player/video_player.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
@@ -32,6 +37,8 @@ class HomeController extends GetxController {
 
   final landingController = Get.find<LandingController>();
 
+  late VideoPlayerController videoPlayerController;
+
   final _carousels = <CarouselEntity>[].obs;
   final _categories = <CategoryEntity>[].obs;
   final _productModelList = <ProductModel>[].obs;
@@ -40,6 +47,8 @@ class HomeController extends GetxController {
   final _ranksModelList = <RankModel>[].obs;
   final _cashFlowModel = Rxn<CashFlowModel>();
   final _currentCarouselIndex = 0.obs;
+  final _currentBenefitsIndex = 0.obs;
+  final _currentRanksIndex = 0.obs;
   final _carouselRequestStatus = RequestStatus.initial.obs;
   final _benefitsRequestStatus = RequestStatus.initial.obs;
   final _ranksRequestStatus = RequestStatus.initial.obs;
@@ -65,6 +74,8 @@ class HomeController extends GetxController {
   RequestStatus get categoriesRequestStatus => _categoriesRequestStatus.value;
   RequestStatus get productsRequestStatus => _productsRequestStatus.value;
   int get currentCarouselIndex => _currentCarouselIndex.value;
+  int get currentBenefitsIndex => _currentBenefitsIndex.value;
+  int get currentRanksIndex => _currentRanksIndex.value;
   bool get appBarExpanded => _appBarExpanded.value;
   int get currentExchangeTab => _currentExchangeTab.value;
   bool get hideBalance => _hideBalance.value;
@@ -84,26 +95,74 @@ class HomeController extends GetxController {
   set cashFlowRequestStatus(value) => _cashFlowRequestStatus.value = value;
   set productsRequestStatus(value) => _productsRequestStatus.value = value;
   set currentCarouselIndex(value) => _currentCarouselIndex.value = value;
+  set currentBenefitsIndex(value) => _currentBenefitsIndex.value = value;
+  set currentRanksIndex(value) => _currentRanksIndex.value = value;
   set appBarExpanded(value) => _appBarExpanded.value = value;
   set currentExchangeTab(value) => _currentExchangeTab.value = value;
   set hideBalance(value) => _hideBalance.value = value;
   late UserModel usermodel;
+  late List<FooterModel> footerModelList;
+  late VideoModel videoModel;
+
+  List<Map<String, dynamic>> footerList = [
+    {
+      "title": "My Family and I",
+      "subtitle": "A family that stays together stays forever"
+    },
+    {"title": "Invest With Hargon", "subtitle": "Loan as an investment"},
+    {
+      "title": "Business with Ardilla",
+      "subtitle": "A Partnership where you Earn"
+    },
+    {"title": "Tax Save", "subtitle": "Where you save while spending"}
+  ];
+
+  Map<String, dynamic> videoData = {
+    "title": "CEO, Mrs Onyinye",
+    "subtitle": "What is Ardilla and its benefits?",
+    "coverImage": "assets/videos/cover.png",
+    "video": "assets/videos/clip.mp4"
+  };
+
+  CarouselController benefitsCarouselController = CarouselController();
+
+  int currentHour = DateTime.now().hour;
+
+  late String greeting;
 
   @override
   onInit() {
     super.onInit();
     usermodel = landingController.userModel;
+    videoModel = VideoModel.fromMap(videoData);
+    videoPlayerController = VideoPlayerController.asset(videoModel.video);
+
+    getFooterModel();
     fetchCarousel();
     fetchCategories();
     fetchCashFlowData();
     fetchBenefits();
     fetchRanks();
+
+    if (currentHour >= 0 && currentHour < 12) {
+      greeting = 'Good Morning ☀';
+    } else if (currentHour >= 12 && currentHour < 18) {
+      greeting = 'Good Afternoon';
+    } else {
+      greeting = 'Good Evening';
+    }
+  }
+
+  getFooterModel() {
+    footerModelList = footerList.map((e) => FooterModel.fromMap(e)).toList();
   }
 
   fetchCategories() async {
     categoriesRequestStatus = RequestStatus.loading;
+     await Future.delayed(Duration(seconds: 2));
     final failOrFetch = await fetchCategoriesUsecase(NoParams());
     failOrFetch.fold((l) {
+      customSnackbar(title: "Error", message: mapFailureToErrorMessage(l));
       categoriesRequestStatus = RequestStatus.error;
     }, (r) {
       categoriesList = r;
@@ -113,12 +172,12 @@ class HomeController extends GetxController {
 
   fetchCarousel() async {
     carouselRequestStatus = RequestStatus.loading;
+    await Future.delayed(Duration(seconds: 2));
     final failOrFetch = await fetchCarouselUsecase(NoParams());
     failOrFetch.fold((l) {
-      customSnackbar(title: "Error", message: "");
+      customSnackbar(title: "Error", message: mapFailureToErrorMessage(l));
       carouselRequestStatus = RequestStatus.error;
     }, (r) async {
-      customSnackbar(title: "Success", message: "fetched");
       carouselsList = r;
 
       carouselRequestStatus = RequestStatus.success;
@@ -127,12 +186,12 @@ class HomeController extends GetxController {
 
   fetchCashFlowData() async {
     cashFlowRequestStatus = RequestStatus.loading;
+     await Future.delayed(Duration(seconds: 2));
     final failOrFetch = await fetchCashFlowUsecase(NoParams());
     failOrFetch.fold((l) {
-      customSnackbar(title: "Error", message: "");
+      customSnackbar(title: "Error", message: mapFailureToErrorMessage(l));
       cashFlowRequestStatus = RequestStatus.error;
     }, (r) async {
-      customSnackbar(title: "Success", message: "cash flow fetched");
       cashFlowModel = r;
 
       cashFlowRequestStatus = RequestStatus.success;
@@ -141,12 +200,12 @@ class HomeController extends GetxController {
 
   fetchBenefits() async {
     benefitsRequestStatus = RequestStatus.loading;
+     await Future.delayed(Duration(seconds: 2));
     final failOrFetch = await fetchBenefitsUsecase(NoParams());
     failOrFetch.fold((l) {
-      customSnackbar(title: "Error", message: "");
+      customSnackbar(title: "Error", message: mapFailureToErrorMessage(l));
       benefitsRequestStatus = RequestStatus.error;
     }, (r) async {
-      customSnackbar(title: "Success", message: "cash flow fetched");
       benefitsModelList = r;
 
       benefitsRequestStatus = RequestStatus.success;
@@ -155,12 +214,12 @@ class HomeController extends GetxController {
 
   fetchRanks() async {
     ranksRequestStatus = RequestStatus.loading;
+     await Future.delayed(Duration(seconds: 2));
     final failOrFetch = await fetchRanksUsecase(NoParams());
     failOrFetch.fold((l) {
       customSnackbar(title: "Error", message: "");
       ranksRequestStatus = RequestStatus.error;
     }, (r) async {
-      customSnackbar(title: "Success", message: "cash flow fetched");
       ranksModelList = r;
 
       ranksRequestStatus = RequestStatus.success;

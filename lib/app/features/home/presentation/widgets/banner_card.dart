@@ -40,7 +40,7 @@ class _BannerCardState extends State<BannerCard> {
           height: MediaQuery.of(context).size.height * 0.3,
         ),
         Positioned(
-          top: 0,
+          top: 20,
           left: 24,
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -64,8 +64,8 @@ class _BannerCardState extends State<BannerCard> {
                     onPressed: () {},
                     width: 50,
                     height: 18.6,
-                    backgroundColor: Color(0xffE6356D),
-                    borderColor: Color(0xffE6356D),
+                    backgroundColor:const Color(0xffE6356D),
+                    borderColor:const Color(0xffE6356D),
                     primaryTextTheme: primaryTextTheme,
                     textStyle: primaryTextTheme.titleSmall!.copyWith(
                         color: Colors.white,

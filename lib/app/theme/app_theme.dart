@@ -112,7 +112,7 @@ class ArdillaAppTheme {
         drawerTheme: drawerTheme,
         iconTheme: lightIconTheme,
         navigationBarTheme:
-            const NavigationBarThemeData(indicatorColor: Color(0xff34f5c5)),
+            const NavigationBarThemeData(indicatorColor: Colors.transparent),
         shadowColor: Colors.grey.shade300,
         hintColor: const Color(0xffBFC9E0),
         scaffoldBackgroundColor: const Color(0xffFFFFFF),

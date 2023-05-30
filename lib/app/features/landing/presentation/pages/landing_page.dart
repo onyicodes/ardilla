@@ -44,30 +44,91 @@ class LandingPage extends GetView<LandingController> {
             FocusManager.instance.primaryFocus?.unfocus();
           },
           child: SideMenu(
+            background: Theme.of(context).primaryColor,
             key: _.sideMenuKey,
-            menu: buildMenu(onLogout: () {
+            menu:CustomDrawer(onLogout: () {
               _.logoutUser();
-            }),
+            },
+            
+            userModel: _.userModel
+            ),
+          
             type: SideMenuType.slide,
-            maxMenuWidth: MediaQuery.of(context).size.width * 0.6,
-            child: AnnotatedRegion<SystemUiOverlayStyle>(
-              value: SystemUiOverlayStyle(
-                statusBarColor: Colors.white,
-                statusBarIconBrightness: Brightness.dark,
-                systemNavigationBarIconBrightness: Brightness.dark,
-              ),
-              child: Scaffold(
-                bottomNavigationBar: MediaQuery.of(context).size.width < 680
-                    ? GetX<LandingController>(builder: (_) {
-                        return NavigationBar(
-                            labelBehavior:
-                                NavigationDestinationLabelBehavior.alwaysShow,
-                            onDestinationSelected: (index) {
-                              _.currentPageIndex = index;
-                            },
-                            selectedIndex: _.currentPageIndex,
-                            destinations: [
-                              NavigationDestination(
+            maxMenuWidth: MediaQuery.of(context).size.width*0.75,
+            child: Scaffold(
+              bottomNavigationBar: MediaQuery.of(context).size.width < 680
+                  ? GetX<LandingController>(builder: (_) {
+                      return NavigationBar(
+                          labelBehavior:
+                              NavigationDestinationLabelBehavior.alwaysShow,
+                          onDestinationSelected: (index) {
+                            _.currentPageIndex = index;
+                          },
+                          selectedIndex: _.currentPageIndex,
+                          destinations: [
+                            NavigationDestination(
+                              icon: SvgPicture.asset(
+                                AssetsConstants.navbarUnselectedHome,
+                                height: 30,
+                                width: 30,
+                              ),
+                              selectedIcon: SvgPicture.asset(
+                                AssetsConstants.navbarSelectedHome,
+                                height: 30,
+                                width: 30,
+                              ),
+                              label: LocaleKeys.navBar_home.tr(),
+                            ),
+                            NavigationDestination(
+                              selectedIcon: SvgPicture.asset(
+                                AssetsConstants.navbarSelectedVoucher,
+                                height: 30,
+                                width: 30,
+                              ),
+                              icon: SvgPicture.asset(
+                                AssetsConstants.navbarUnselectedVoucher,
+                                height: 30,
+                                width: 30,
+                              ),
+                              label: LocaleKeys.navBar_voucher.tr(),
+                            ),
+                            NavigationDestination(
+                                icon: SvgPicture.asset(
+                                  AssetsConstants.navbarUnselectWallet,
+                                  height: 30,
+                                  width: 30,
+                                ),
+                                selectedIcon: SvgPicture.asset(
+                                  AssetsConstants.navbarSelectWallet,
+                                  height: 30,
+                                  width: 30,
+                                ),
+                                label: LocaleKeys.navBar_wallet.tr()),
+                            NavigationDestination(
+                                icon: SvgPicture.asset(
+                                  AssetsConstants.navbarUnselectedSettings,
+                                  height: 30,
+                                  width: 30,
+                                ),
+                                selectedIcon: SvgPicture.asset(
+                                  AssetsConstants.navbarSelectedSettings,
+                                  height: 30,
+                                  width: 30,
+                                ),
+                                label: LocaleKeys.navBar_settings.tr()),
+                          ]);
+                    })
+                  : null,
+              body: GetX<LandingController>(
+                builder: (_) {
+                  return Row(
+                    children: [
+                      if (MediaQuery.of(context).size.width >= 680)
+                        SizedBox(
+                          width: 130,
+                          child: NavigationRail(
+                            destinations: <NavigationRailDestination>[
+                              NavigationRailDestination(
                                 icon: SvgPicture.asset(
                                   AssetsConstants.navbarUnselectedHome,
                                   height: 30,
@@ -78,22 +139,27 @@ class LandingPage extends GetView<LandingController> {
                                   height: 30,
                                   width: 30,
                                 ),
-                                label: LocaleKeys.navBar_home.tr(),
-                              ),
-                              NavigationDestination(
-                                selectedIcon: SvgPicture.asset(
-                                  AssetsConstants.navbarSelectedVoucher,
-                                  height: 30,
-                                  width: 30,
+                                label: Text(
+                                  LocaleKeys.navBar_home.tr(),
+                                  style: primaryTextTheme.headlineSmall,
                                 ),
-                                icon: SvgPicture.asset(
-                                  AssetsConstants.navbarUnselectedVoucher,
-                                  height: 30,
-                                  width: 30,
-                                ),
-                                label: LocaleKeys.navBar_voucher.tr(),
                               ),
-                              NavigationDestination(
+                              NavigationRailDestination(
+                                  selectedIcon: SvgPicture.asset(
+                                    AssetsConstants.navbarSelectedVoucher,
+                                    height: 30,
+                                    width: 30,
+                                  ),
+                                  icon: SvgPicture.asset(
+                                    AssetsConstants.navbarUnselectedVoucher,
+                                    height: 30,
+                                    width: 30,
+                                  ),
+                                  label: Text(
+                                    LocaleKeys.navBar_voucher.tr(),
+                                    style: primaryTextTheme.headlineSmall,
+                                  )),
+                              NavigationRailDestination(
                                   icon: SvgPicture.asset(
                                     AssetsConstants.navbarUnselectWallet,
                                     height: 30,
@@ -104,8 +170,11 @@ class LandingPage extends GetView<LandingController> {
                                     height: 30,
                                     width: 30,
                                   ),
-                                  label: LocaleKeys.navBar_wallet.tr()),
-                              NavigationDestination(
+                                  label: Text(
+                                    LocaleKeys.navBar_wallet.tr(),
+                                    style: primaryTextTheme.headlineSmall,
+                                  )),
+                              NavigationRailDestination(
                                   icon: SvgPicture.asset(
                                     AssetsConstants.navbarUnselectedSettings,
                                     height: 30,
@@ -116,122 +185,51 @@ class LandingPage extends GetView<LandingController> {
                                     height: 30,
                                     width: 30,
                                   ),
-                                  label: LocaleKeys.navBar_settings.tr()),
-                            ]);
-                      })
-                    : null,
-                body: GetX<LandingController>(
-                  builder: (_) {
-                    return Row(
-                      children: [
-                        if (MediaQuery.of(context).size.width >= 680)
-                          SizedBox(
-                            width: 130,
-                            child: NavigationRail(
-                              destinations: <NavigationRailDestination>[
-                                NavigationRailDestination(
-                                  icon: SvgPicture.asset(
-                                    AssetsConstants.navbarUnselectedHome,
-                                    height: 30,
-                                    width: 30,
-                                  ),
-                                  selectedIcon: SvgPicture.asset(
-                                    AssetsConstants.navbarSelectedHome,
-                                    height: 30,
-                                    width: 30,
-                                  ),
                                   label: Text(
-                                    LocaleKeys.navBar_home.tr(),
+                                    LocaleKeys.navBar_settings.tr(),
                                     style: primaryTextTheme.headlineSmall,
-                                  ),
-                                ),
-                                NavigationRailDestination(
-                                    selectedIcon: SvgPicture.asset(
-                                      AssetsConstants.navbarSelectedVoucher,
-                                      height: 30,
-                                      width: 30,
-                                    ),
-                                    icon: SvgPicture.asset(
-                                      AssetsConstants.navbarUnselectedVoucher,
-                                      height: 30,
-                                      width: 30,
-                                    ),
-                                    label: Text(
-                                      LocaleKeys.navBar_voucher.tr(),
-                                      style: primaryTextTheme.headlineSmall,
-                                    )),
-                                NavigationRailDestination(
-                                    icon: SvgPicture.asset(
-                                      AssetsConstants.navbarUnselectWallet,
-                                      height: 30,
-                                      width: 30,
-                                    ),
-                                    selectedIcon: SvgPicture.asset(
-                                      AssetsConstants.navbarSelectWallet,
-                                      height: 30,
-                                      width: 30,
-                                    ),
-                                    label: Text(
-                                      LocaleKeys.navBar_wallet.tr(),
-                                      style: primaryTextTheme.headlineSmall,
-                                    )),
-                                NavigationRailDestination(
-                                    icon: SvgPicture.asset(
-                                      AssetsConstants.navbarUnselectedSettings,
-                                      height: 30,
-                                      width: 30,
-                                    ),
-                                    selectedIcon: SvgPicture.asset(
-                                      AssetsConstants.navbarSelectedSettings,
-                                      height: 30,
-                                      width: 30,
-                                    ),
-                                    label: Text(
-                                      LocaleKeys.navBar_settings.tr(),
-                                      style: primaryTextTheme.headlineSmall,
-                                    )),
-                              ],
-                              selectedIndex: _.currentPageIndex,
-                              labelType: NavigationRailLabelType.selected,
-                              onDestinationSelected: (index) {
-                                _.currentPageIndex = index;
-                              },
-                            ),
+                                  )),
+                            ],
+                            selectedIndex: _.currentPageIndex,
+                            labelType: NavigationRailLabelType.selected,
+                            onDestinationSelected: (index) {
+                              _.currentPageIndex = index;
+                            },
                           ),
-                        if (MediaQuery.of(context).size.width >= 680)
-                          const VerticalDivider(thickness: 1, width: 1),
-                        Expanded(
-                          child: Center(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  boxShadow:
-                                      MediaQuery.of(context).size.width >= 680
-                                          ? [
-                                              BoxShadow(
-                                                  color: Theme.of(context)
-                                                      .shadowColor,
-                                                  blurRadius: 0.5,
-                                                  spreadRadius: 3)
-                                            ]
-                                          : null),
-                              width: MediaQuery.of(context).size.width >= 680
-                                  ? MediaQuery.of(context).size.width * 0.6
-                                  : MediaQuery.of(context).size.width,
-                              child: ScrollConfiguration(
-                                behavior: ScrollConfiguration.of(context)
-                                    .copyWith(scrollbars: false),
-                                child: IndexedStack(
-                                  index: _.currentPageIndex,
-                                  children: pages,
-                                ),
+                        ),
+                      if (MediaQuery.of(context).size.width >= 680)
+                        const VerticalDivider(thickness: 1, width: 1),
+                      Expanded(
+                        child: Center(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                boxShadow:
+                                    MediaQuery.of(context).size.width >= 680
+                                        ? [
+                                            BoxShadow(
+                                                color: Theme.of(context)
+                                                    .shadowColor,
+                                                blurRadius: 0.5,
+                                                spreadRadius: 3)
+                                          ]
+                                        : null),
+                            width: MediaQuery.of(context).size.width >= 680
+                                ? MediaQuery.of(context).size.width * 0.6
+                                : MediaQuery.of(context).size.width,
+                            child: ScrollConfiguration(
+                              behavior: ScrollConfiguration.of(context)
+                                  .copyWith(scrollbars: false),
+                              child: IndexedStack(
+                                index: _.currentPageIndex,
+                                children: pages,
                               ),
                             ),
                           ),
                         ),
-                      ],
-                    );
-                  },
-                ),
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
           ),
