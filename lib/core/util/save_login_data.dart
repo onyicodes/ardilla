@@ -10,7 +10,7 @@ saveLoginData(
     required GetStorage storeBox,
     required String password,
     required FlutterSecureStorage secureStorage}) async {
-  initializeGetX(); // clear route and removes all controllers before logging in
+  await initializeGetX(); // clear route and removes all controllers before logging in
 
   String lastUserId = userModel.id.toString();
   await storeBox.write(CacheKeys.lastUserID, lastUserId);

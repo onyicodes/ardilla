@@ -16,10 +16,7 @@ void main() async {
   ));
   await EasyLocalization.ensureInitialized();
   await GetStorage.init();
-  Get.lazyPut(()=>AuthService());
-  Get.lazyPut(()=>GetStorage(),);
-  Get.lazyPut(()=> FlutterSecureStorage());
- // await initializeGetX();
+ await initializeGetX();
 
   runApp(EasyLocalization(
       supportedLocales: const [Locale('en')],
