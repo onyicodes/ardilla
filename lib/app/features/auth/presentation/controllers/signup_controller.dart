@@ -16,10 +16,15 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ardilla/core/parameters/signup/signin_params.dart';
 import 'package:ardilla/core/validators/auth_field_validator.dart';
+import 'package:phone_form_field/phone_form_field.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AuthController extends GetxController {
   final TextEditingController phoneController = TextEditingController();
+  final phoneNumberController = PhoneController(const PhoneNumber(
+                          isoCode: IsoCode.NG,
+                          nsn: ""));
+                          
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController refCodeController = TextEditingController();
@@ -182,7 +187,7 @@ class AuthController extends GetxController {
         email: emailAddressController.text.trim().toLowerCase(),
         firstName: firstNameController.text,
         userName: userNameController.text,
-        phone: phoneController.text,
+        phone: phoneNumberController.value!.nsn,
         rank:RankType.Cadet.name,
         password: passwordController.text.trim(),
         lastName: lastNameController.text,

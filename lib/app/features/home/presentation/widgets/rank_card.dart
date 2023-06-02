@@ -23,7 +23,7 @@ class RankCard extends StatelessWidget {
         ),
         Container(
           height: 240,
-          padding: EdgeInsets.all(30),
+          padding: EdgeInsets.all(40),
           width: MediaQuery.of(context).size.width * 0.9,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.all(

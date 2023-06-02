@@ -1,9 +1,11 @@
 import 'package:ardilla/app/features/auth/presentation/controllers/signup_controller.dart';
 import 'package:ardilla/app/features/auth/presentation/widgets/password_check.dart';
 import 'package:ardilla/core/constants/assets_constants.dart';
+import 'package:ardilla/core/constants/error_texts.dart';
 
 import 'package:ardilla/core/constants/general_constants.dart';
 import 'package:ardilla/core/general_widgets/button_widget.dart';
+import 'package:ardilla/core/general_widgets/custom_phone_field.dart';
 import 'package:ardilla/core/general_widgets/custom_auth_field.dart';
 import 'package:ardilla/core/general_widgets/custom_list_space.dart';
 import 'package:ardilla/core/general_widgets/password_textfield.dart';
@@ -11,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:phone_form_field/phone_form_field.dart';
 
 class CreateAccountPage extends GetView<AuthController> {
   @override
@@ -96,16 +99,24 @@ class CreateAccountPage extends GetView<AuthController> {
                     CustomListSpacing(
                         spacingValue: ListSpacingValue.spacingV16.value),
                     GetX<AuthController>(builder: (_) {
-                      return CustomAuthField(
-                          controller: _.phoneController,
+                      return CustomPhoneField(
+                          controller: _.phoneNumberController,
                           prefixIcon:
                               SvgPicture.asset(AssetsConstants.phoneIconSVG),
                           hintText: GeneralConstants.phoneHint,
                           inputType: TextInputType.phone,
-                          onChanged: (value) {
-                            if (_.phoneError.isNotEmpty) {
+                          onChanged: (PhoneNumber? p) {
+                            String? Function(PhoneNumber?) h =
+                                PhoneValidator.validMobile();
+
+                            if (h(p) != null) {
+                              _.phoneError = AuthFieldValidationErrorMessage.phoneFormatWrong;
+                            } else {
                               _.phoneError = "";
                             }
+                            // if (_.phoneError.isNotEmpty) {
+                            //   _.phoneError = "";
+                            // }
                           },
                           errorText: _.phoneError);
                     }),

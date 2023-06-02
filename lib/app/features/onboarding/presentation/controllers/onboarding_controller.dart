@@ -37,17 +37,17 @@ class OnboardingController extends GetxController {
       OnboardContentEntity(
           title: "Lorem Ipsum Kip Antares Lorem",
           subtitle:
-              "Lorem ipsum dolor sit amet consectetur. Congue eget aliquet nullam velit volutpat in viverra. Amet integer urna ornare congue ultrices at.",
+              "Lorem ipsum dolor sit amet consectetur. Colutpat in viverra. Amet integer urna ornare congue ultrices at.",
           imageUrl: AssetsConstants.onboardingImageSvg),
       OnboardContentEntity(
-          title: "Lorem Ipsum Kip Antares Lorem",
+          title: "Antares Lorem Lorem Ipsum Kip ",
           subtitle:
-              "Lorem ipsum dolor sit amet consectetur. Congue eget aliquet nullam velit volutpat in viverra. Amet integer urna ornare congue ultrices at.",
+              " Congue eget aliquet nullam velit volutpat in viverra. Amet integer urna ornare congue ultrices at.",
           imageUrl: AssetsConstants.onboardingImageSvg),
       OnboardContentEntity(
-          title: "Lorem Ipsum Kip Antares Lorem",
+          title: "Lorem Ipsum Lorem",
           subtitle:
-              "Lorem ipsum dolor sit amet consectetur. Congue eget aliquet nullam velit volutpat in viverra. Amet integer urna ornare congue ultrices at.",
+              "Lorem ipsum dolor sit amet consectetur. Congue eget aliquet nullam velit volutpat in viverra.",
           imageUrl: AssetsConstants.onboardingImageSvg),
     ]);
   }

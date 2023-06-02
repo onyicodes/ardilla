@@ -12,6 +12,7 @@ class BenefitsCard extends StatelessWidget {
     TextTheme primaryTextTheme = Theme.of(context).primaryTextTheme;
     return Container(
       height: 240,
+      padding: EdgeInsets.only(left:12, right:12, ),
       width: MediaQuery.of(context).size.width * 0.9,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(

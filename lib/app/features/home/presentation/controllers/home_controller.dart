@@ -159,7 +159,7 @@ class HomeController extends GetxController {
 
   fetchCategories() async {
     categoriesRequestStatus = RequestStatus.loading;
-     await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 2));
     final failOrFetch = await fetchCategoriesUsecase(NoParams());
     failOrFetch.fold((l) {
       customSnackbar(title: "Error", message: mapFailureToErrorMessage(l));
@@ -186,7 +186,7 @@ class HomeController extends GetxController {
 
   fetchCashFlowData() async {
     cashFlowRequestStatus = RequestStatus.loading;
-     await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 2));
     final failOrFetch = await fetchCashFlowUsecase(NoParams());
     failOrFetch.fold((l) {
       customSnackbar(title: "Error", message: mapFailureToErrorMessage(l));
@@ -200,12 +200,13 @@ class HomeController extends GetxController {
 
   fetchBenefits() async {
     benefitsRequestStatus = RequestStatus.loading;
-     await Future.delayed(Duration(seconds: 2));
     final failOrFetch = await fetchBenefitsUsecase(NoParams());
     failOrFetch.fold((l) {
+      print("error occurred");
       customSnackbar(title: "Error", message: mapFailureToErrorMessage(l));
       benefitsRequestStatus = RequestStatus.error;
     }, (r) async {
+      print("completed $r");
       benefitsModelList = r;
 
       benefitsRequestStatus = RequestStatus.success;
@@ -214,7 +215,7 @@ class HomeController extends GetxController {
 
   fetchRanks() async {
     ranksRequestStatus = RequestStatus.loading;
-     await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 2));
     final failOrFetch = await fetchRanksUsecase(NoParams());
     failOrFetch.fold((l) {
       customSnackbar(title: "Error", message: "");

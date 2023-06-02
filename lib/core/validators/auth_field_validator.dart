@@ -28,19 +28,20 @@ class AuthFieldValidationPage {
       validated = false;
     }
 
-
     if (params.phone.isEmpty) {
-      authController.phoneError =
-          AuthFieldValidationErrorMessage.phoneEmpty;
+      authController.phoneError = AuthFieldValidationErrorMessage.phoneEmpty;
       validated = false;
     }
-    
+
+    if (authController.phoneError.isNotEmpty) {
+      validated = false;
+    }
+
     if (!authController.validPasswordField) {
       authController.passwordError =
           AuthFieldValidationErrorMessage.passwordFormatWrong;
       validated = false;
     }
-
 
     if (params.password.isEmpty) {
       authController.passwordError =
@@ -51,18 +52,18 @@ class AuthFieldValidationPage {
     return Future.value(validated);
   }
 
-  Future<bool> validateEmail({required String email}){
+  Future<bool> validateEmail({required String email}) {
     bool validated = true;
-     if (email.isEmpty) {
+    if (email.isEmpty) {
       authController.emailError = AuthFieldValidationErrorMessage.emailEmpty;
       validated = false;
-    }else if (!EmailValidator.validate(email)) {
+    } else if (!EmailValidator.validate(email)) {
       authController.emailError =
           AuthFieldValidationErrorMessage.emailFormatWrong;
       validated = false;
     }
 
-    return  Future.value(validated);
+    return Future.value(validated);
   }
 
   Future<bool> validateSigninParams({required SigninParams params}) {

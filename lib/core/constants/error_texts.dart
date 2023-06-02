@@ -3,7 +3,7 @@ class AuthFieldValidationErrorMessage {
   static const String fieldEmpty = 'This field is required';
   static const String emailFormatWrong = 'Enter a valid email address';
   static const String phoneEmpty = 'Phone number has not been entered';
-  static const String phoneFormatWrong = 'wrong phone format entered';
+  static const String phoneFormatWrong = 'Invalid phone entered';
   static const String userNameEmpty = 'Username is required';
   static const String firstNameEmpty = 'First name is required';
   static const String lastNameEmpty = 'Last name is required';
