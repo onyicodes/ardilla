@@ -1,5 +1,4 @@
 import 'package:ardilla/app/features/home/data/model/footer_model.dart';
-import 'package:ardilla/app/features/home/data/model/rank_model.dart';
 import 'package:ardilla/core/constants/general_constants.dart';
 import 'package:ardilla/core/general_widgets/button_widget.dart';
 import 'package:ardilla/core/general_widgets/custom_list_space.dart';

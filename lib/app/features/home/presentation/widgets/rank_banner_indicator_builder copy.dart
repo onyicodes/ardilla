@@ -1,4 +1,4 @@
-import 'package:ardilla/app/features/home/presentation/widgets/banner_indicator_widget.dart';
+
 import 'package:flutter/material.dart';
 
 class RankBannerIndicatorBuilder extends StatelessWidget {

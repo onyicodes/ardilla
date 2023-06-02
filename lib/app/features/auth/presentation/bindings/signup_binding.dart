@@ -19,7 +19,7 @@ class AuthBinding implements Bindings {
         flutterSecureStorage: getAuthControllerSl(),
         checkIfUserExistsUsecase: getAuthControllerSl(),
         signinUsecase: getAuthControllerSl(),
-        storeBox: getAuthControllerSl()));
+        storeBox: getAuthControllerSl()), permanent: true);
 
     getAuthControllerSl.lazyPut<SignupUsecase>(
         () => SignupUsecase(repository: getAuthControllerSl()));

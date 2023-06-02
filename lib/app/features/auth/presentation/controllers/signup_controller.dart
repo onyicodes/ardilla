@@ -6,7 +6,6 @@ import 'package:ardilla/app/features/auth/domain/usecases/verify_token_usecase.d
 import 'package:ardilla/app/routes/app_pages.dart';
 import 'package:ardilla/core/constants/failure_to_error_message.dart';
 import 'package:ardilla/core/constants/general_constants.dart';
-import 'package:ardilla/core/constants/keys/cache_keys.dart';
 import 'package:ardilla/core/general_widgets/custom_snackbar.dart';
 import 'package:ardilla/core/parameters/signup/email_signup_params.dart';
 import 'package:ardilla/core/util/save_login_data.dart';
@@ -21,20 +20,17 @@ import 'package:url_launcher/url_launcher.dart';
 
 class AuthController extends GetxController {
   final TextEditingController phoneController = TextEditingController();
-  final phoneNumberController = PhoneController(const PhoneNumber(
-                          isoCode: IsoCode.NG,
-                          nsn: ""));
-                          
+  final phoneNumberController =
+      PhoneController(const PhoneNumber(isoCode: IsoCode.NG, nsn: ""));
+
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController refCodeController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailAddressController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController signInEmailAddressController =
-      TextEditingController();
-  final TextEditingController signInPasswordController =
-      TextEditingController();
+  late final TextEditingController signInEmailAddressController;
+  late final TextEditingController signInPasswordController;
 
   final SignupUsecase emailSignupUsecase;
   final SigninUsecase signinUsecase;
@@ -132,12 +128,12 @@ class AuthController extends GetxController {
   set hasNumber(value) => _hasNumber.value = value;
   set hasSpecialCharacter(value) => _hasSpecialCharacter.value = value;
   set toSignIn(value) => _toSignIn.value = value;
-  late String lastUserId;
 
   @override
   onInit() {
     super.onInit();
-    lastUserId = storeBox.read(CacheKeys.lastUserID) ?? "";
+    signInEmailAddressController = TextEditingController();
+    signInPasswordController = TextEditingController();
   }
 
   set reconnected(value) => _reconnected.value = value;
@@ -188,7 +184,7 @@ class AuthController extends GetxController {
         firstName: firstNameController.text,
         userName: userNameController.text,
         phone: phoneNumberController.value!.nsn,
-        rank:RankType.Cadet.name,
+        rank: RankType.Cadet.name,
         password: passwordController.text.trim(),
         lastName: lastNameController.text,
         refCode: refCodeController.text);
@@ -263,8 +259,9 @@ class AuthController extends GetxController {
               title: 'Error', message: mapFailureToErrorMessage(fail));
         }, (emailExists) {
           if (emailExists) {
-            toSignIn = true;
             signInEmailAddressController.text = email;
+            signInPasswordController.text = "";
+            toSignIn = true;
             customSnackbar(title: "", message: "Signin to continue");
           } else {
             customSnackbar(

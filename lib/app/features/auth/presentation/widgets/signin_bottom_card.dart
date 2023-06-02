@@ -15,8 +15,7 @@ class SigninBottomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme primaryTextTheme = Theme.of(context).primaryTextTheme;
-    return GetBuilder<AuthController>(builder: (_) {
-      return Container(
+    return Container(
         height: MediaQuery.of(context).size.height * 0.75,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
@@ -142,15 +141,18 @@ class SigninBottomCard extends StatelessWidget {
                     style: primaryTextTheme.bodyLarge!
                         .copyWith(fontWeight: FontWeight.normal),
                   ),
-                  TextButton(
-                      onPressed: () {
-                        _.toSignIn = false;
-                      },
-                      child: Text(
-                        'Create account',
-                        style: primaryTextTheme.headlineLarge!
-                            .copyWith(color: Theme.of(context).primaryColor),
-                      ))
+                  GetBuilder<AuthController>(builder: (_) {
+                      return TextButton(
+                          onPressed: () {
+                            _.toSignIn = false;
+                          },
+                          child: Text(
+                            'Create account',
+                            style: primaryTextTheme.headlineLarge!
+                                .copyWith(color: Theme.of(context).primaryColor),
+                          ));
+                    }
+                  )
                 ],
               ),
               CustomListSpacing(
@@ -159,6 +161,5 @@ class SigninBottomCard extends StatelessWidget {
           ),
         ),
       );
-    });
   }
 }

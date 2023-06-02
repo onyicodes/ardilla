@@ -2,8 +2,6 @@ import 'package:ardilla/app/features/auth/presentation/controllers/signup_contro
 import 'package:ardilla/app/features/auth/presentation/widgets/signin_bottom_card.dart';
 import 'package:ardilla/app/features/auth/presentation/widgets/welcome_bottom_card.dart';
 import 'package:ardilla/core/constants/assets_constants.dart';
-import 'package:ardilla/core/constants/general_constants.dart';
-import 'package:ardilla/core/general_widgets/custom_list_space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';

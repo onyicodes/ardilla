@@ -67,11 +67,28 @@ class OnboardingPage extends GetView<OnboardingController> {
                             _.toSigninPage();
                           }
                         },
-                        child: Container(
-                          height:82 ,
-                          width: 82,
-                          decoration: const BoxDecoration(borderRadius:const BorderRadius.all(Radius.circular(100))),
-                          child: SvgPicture.asset(AssetsConstants.onboardForward),),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Container(
+                              width: 95,
+                              height: 95,
+                               decoration:  BoxDecoration(
+                                border: Border.all(color: Theme.of(context).primaryColorLight),
+                                borderRadius:const BorderRadius.all(Radius.circular(100))),
+                              child: GetX<OnboardingController>(builder: (_) {
+                                  return CircularProgressIndicator(value: (_.page+1)/_.contentList.length, color: Theme.of(context).primaryColor,);
+                                }
+                              )),
+                            Container(
+                              height:65,
+                              width: 65,
+                              decoration:  BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                borderRadius:const BorderRadius.all(Radius.circular(100))),
+                              child: const Icon(Icons.arrow_forward,size: 40, color: Colors.white,),),
+                          ],
+                        ),
                       )
 
                     ],),
